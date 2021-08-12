@@ -8,6 +8,18 @@ jobs:
   check:
     runs-on: ubuntu-20.04
     timeout-minutes: 20
+    services:
+      postgres:
+        image: postgres:13.3
+        env:
+          POSTGRES_PASSWORD: postgres
+          options: >-
+            --health-cmd pg_isready
+            --health-interval 10s
+            --health-timeout 5s
+            --health-retries 5
+        ports:
+          - 5432:5432
     strategy:
       matrix:
         service:
@@ -41,7 +53,9 @@ jobs:
         working-directory: apps/${{ matrix.service }}
 
       - name: Run e2e tests
-        run: yarn test:e2e
+        run: |
+          yarn migrate
+          yarn test:e2e
         working-directory: apps/${{ matrix.service }}
 
       - name: Run build
