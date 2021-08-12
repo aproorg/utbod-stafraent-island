@@ -12,17 +12,4 @@ export class UserService {
   async findAll(): Promise<User[]> {
     return this.userModel.findAll();
   }
-
-  findOne(id: string): Promise<User> {
-    return this.userModel.findOne({
-      where: {
-        id,
-      },
-    });
-  }
-
-  async remove(id: string): Promise<void> {
-    const user = await this.findOne(id);
-    await user.destroy();
-  }
 }
