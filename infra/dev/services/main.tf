@@ -8,8 +8,8 @@ locals {
     "terraform"     = "true",
     "state"         = "services"
   })
-  ecr_repositories  = ["api"]
-  vpc_id = data.terraform_remote_state.networking.outputs.applications_vpc_id
+  ecr_repositories = ["api"]
+  vpc_id           = data.terraform_remote_state.networking.outputs.applications_vpc_id
 }
 
 terraform {

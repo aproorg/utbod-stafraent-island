@@ -41,21 +41,21 @@ module "api" {
           DB_PASS = "/ecs/api/DB_PASSWORD"
         }
       },
-      # {
-      #   name       = "migration"
-      #   entrypoint = ["npx"]
-      #   command    = ["sequelize-cli", "db:migrate"]
-      #   image      = "${aws_ecr_repository.repository.repository_url}:${var.image_tag}"
+      {
+        name       = "migration"
+        entrypoint = ["npx"]
+        command    = ["sequelize-cli", "db:migrate"]
+        image      = "${aws_ecr_repository.repository.repository_url}:${var.image_tag}"
 
-      #   environment = merge(var.environment, {
-      #     DB_USER = "api"
-      #     DB_NAME = "api"
-      #     DB_HOST = var.db_host
-      #   })
-      #   secrets = {
-      #     DB_PASS = "/ecs/api/DB_PASSWORD"
-      #   }
-      # }
+        environment = merge(var.environment, {
+          DB_USER = "api"
+          DB_NAME = "api"
+          DB_HOST = var.db_host
+        })
+        secrets = {
+          DB_PASS = "/ecs/api/DB_PASSWORD"
+        }
+      }
     ]
   }
 }

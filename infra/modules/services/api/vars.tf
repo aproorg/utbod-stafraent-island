@@ -23,7 +23,7 @@ variable "image_tag" {
 }
 
 variable "environment" {
-  type = any
+  type    = any
   default = {}
 }
 
