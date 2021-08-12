@@ -16,7 +16,7 @@ module "api" {
   desired_count          = var.desired_count
   service_name           = "api"
   service_container_port = 3333
-  liveness               = "/api"
+  liveness               = "/api/liveness"
   ingress = [
     { host = var.host, path = "/api/*", priority = 3 },
   ]
