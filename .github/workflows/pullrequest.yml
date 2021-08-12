@@ -1,0 +1,49 @@
+name: Pull request pipeline
+
+on:
+  pull_request: {}
+  workflow_dispatch: {}
+
+jobs:
+  check:
+    runs-on: ubuntu-20.04
+    timeout-minutes: 20
+    strategy:
+      matrix:
+        service:
+          - api
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Cache node dependencies
+        uses: actions/cache@v2
+        with:
+          path: apps/${{ matrix.service}}/node_modules
+          key: ${{ runner.os }}-yarn-${{ matrix.service }}-${{ hashFiles('apps/${{ matrix.service }}/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-${{ matrix.service }}-
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+        working-directory: apps/${{ matrix.service }}
+
+      - name: Run linter
+        run: yarn lint
+        working-directory: apps/${{ matrix.service }}
+
+      - name: Run formatter
+        run: yarn format:check
+        working-directory: apps/${{ matrix.service }}
+
+      - name: Run unit tests
+        run: yarn test
+        working-directory: apps/${{ matrix.service }}
+
+      - name: Run e2e tests
+        run: yarn test:e2e
+        working-directory: apps/${{ matrix.service }}
+
+      - name: Run build
+        run: yarn build
+        working-directory: apps/${{ matrix.service }}
