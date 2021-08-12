@@ -1,0 +1,15 @@
+version: '3.3'
+
+services:
+  db_api:
+    image: postgres:13.3
+    container_name: db_api
+    ports:
+      - 5432:5432
+    networks:
+      - local
+    environment:
+      - POSTGRES_PASSWORD=postgres
+
+networks:
+  local:
