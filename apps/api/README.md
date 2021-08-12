@@ -7,14 +7,14 @@ $ yarn
 ## Running the app
 
 ```bash
-# development
-$ yarn start
+# docker-compose
+$ docker-compose up
 
-# watch mode
+# migration
+$ yarn migrate
+
+# run dev server on localhost:3333/api
 $ yarn start:dev
-
-# production mode
-$ yarn start:prod
 ```
 
 ## Test
