@@ -5,7 +5,7 @@ on:
   workflow_dispatch: {}
 
 jobs:
-  check:
+  check-apps:
     runs-on: ubuntu-20.04
     timeout-minutes: 20
     services:
@@ -61,3 +61,24 @@ jobs:
       - name: Run build
         run: yarn build
         working-directory: apps/${{ matrix.service }}
+
+  check-infra:
+    runs-on: ubuntu-20.04
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+        with:
+          repository: tfutils/tfenv
+          path: .tfenv
+
+      - name: Add tfenv to PATH
+        run: echo "PATH=.tfenv/bin:$PATH" >> $GITHUB_ENV
+
+      - name: Install Terraform
+        run: tfenv install
+
+      - name: Perform format check
+        run: terraform fmt -check -diff -recursive .
+        working-directory: infra
