@@ -13,9 +13,10 @@ RUN yarn install --frozen-lockfile --prod
 FROM base as builder
 
 ARG APP_PATH
-ADD ${APP_PATH}/. .
 
 RUN yarn install --frozen-lockfile
+
+ADD ${APP_PATH}/. .
 
 RUN yarn build
 
