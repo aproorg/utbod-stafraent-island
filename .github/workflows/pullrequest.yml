@@ -24,6 +24,7 @@ jobs:
       matrix:
         service:
           - vmst
+          - islandis
 
     steps:
       - uses: actions/checkout@v2
