@@ -3,7 +3,7 @@ name: Build and deploy pipeline
 on:
   push:
     branches:
-      - 'master'
+      - "master"
     tags:
       - docker-build-*
   workflow_dispatch: {}
@@ -19,6 +19,7 @@ jobs:
       matrix:
         service:
           - api
+          - islandis
 
     steps:
       - uses: actions/checkout@v2
@@ -54,6 +55,7 @@ jobs:
       matrix:
         service:
           - api
+          - islandis
 
     steps:
       - name: Configure AWS credentials
