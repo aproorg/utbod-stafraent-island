@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { Recipe } from './models/recipe.model';
+import { BenefitApplication } from './models/recipe.model';
 
 import { Field, InputType } from '@nestjs/graphql';
 import { IsOptional, Length, MaxLength } from 'class-validator';
 
 @InputType()
-export class NewRecipeInput {
+export class UnemploymentApplicationInput {
   @Field()
   @MaxLength(30)
   title: string;
@@ -20,12 +20,14 @@ export class NewRecipeInput {
 }
 
 @Injectable()
-export class RecipesService {
-  async create(data: NewRecipeInput): Promise<Recipe> {
+export class UnemploymentApplicationService {
+  async create(
+    data: UnemploymentApplicationInput,
+  ): Promise<BenefitApplication> {
     return {} as any;
   }
 
-  async findOneById(id: string): Promise<Recipe> {
+  async findOneById(id: string): Promise<BenefitApplication> {
     return {} as any;
   }
 }
