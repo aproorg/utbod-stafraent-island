@@ -1,5 +1,5 @@
 resource "aws_security_group" "alb" {
-  name   = "ecs-alb-security-group"
+  name   = "ecs-alb-security-group-${var.env}"
   vpc_id = var.vpc_id
 
   ingress {
@@ -28,7 +28,7 @@ resource "aws_security_group" "alb" {
 }
 
 resource "aws_lb" "alb" {
-  name               = "ecs-alb"
+  name               = "ecs-alb-${var.env}"
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb.id]
@@ -38,7 +38,7 @@ resource "aws_lb" "alb" {
 
   access_logs {
     bucket  = aws_s3_bucket.lb_logs.bucket
-    prefix  = "ecs-alb"
+    prefix  = "ecs-alb-${var.env}"
     enabled = true
   }
 }

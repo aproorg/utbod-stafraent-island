@@ -9,12 +9,12 @@ data "aws_iam_policy_document" "bastion_assume_role" {
 }
 
 resource "aws_iam_role" "bastion" {
-  name               = "bastion"
+  name               = "bastion-${var.env}"
   assume_role_policy = data.aws_iam_policy_document.bastion_assume_role.json
 }
 
 resource "aws_iam_instance_profile" "bastion" {
-  name = "bastion_profile"
+  name = "bastion_profile-${var.env}"
   role = aws_iam_role.bastion.name
 }
 

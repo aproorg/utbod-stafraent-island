@@ -9,7 +9,7 @@ data "aws_iam_policy_document" "allow_get_secrets_document" {
     ]
 
     resources = [
-      "arn:aws:ssm:*:${data.aws_caller_identity.current.account_id}:parameter/ecs/${coalesce(var.ssm_namespace, replace(var.service_name, "-", "/"))}/*",
+      "arn:aws:ssm:*:${data.aws_caller_identity.current.account_id}:parameter/ecs/${coalesce(var.ssm_namespace, var.service_name)}/*",
     ]
   }
 }
