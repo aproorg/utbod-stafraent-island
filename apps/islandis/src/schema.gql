@@ -2,7 +2,7 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Recipe {
+type BenefitApplication {
   id: ID!
   title: String!
   description: String
@@ -16,5 +16,5 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 scalar DateTime
 
 type Query {
-  recipe(id: String!): Recipe!
+  recipe(id: String!): BenefitApplication!
 }
