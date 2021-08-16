@@ -24,6 +24,7 @@ jobs:
       matrix:
         service:
           - api
+          - islandis
 
     steps:
       - uses: actions/checkout@v2
