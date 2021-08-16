@@ -1,0 +1,14 @@
+{
+  "entry": "src/main.ts",
+  "bundle": true,
+  "platform": "node",
+  "watch": true,
+  "outdir": "dist",
+  "external": [
+    "@nestjs/microservices",
+    "@nestjs/typeorm",
+    "mongoose",
+    "@nestjs/websockets",
+    "class-transformer/storage"
+  ]
+}
