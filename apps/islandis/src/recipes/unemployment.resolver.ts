@@ -11,6 +11,13 @@ export class UnemploymentResolver {
 
   @Query((returns) => BenefitApplication)
   async recipe(@Args('id') id: string): Promise<BenefitApplication> {
+    return {
+      creationDate: new Date(),
+      id: '1',
+      title: 'title',
+      description: 'asfasfds',
+      ingredients: [],
+    };
     const recipe = await this.recipesService.findOneById(id);
     if (!recipe) {
       throw new NotFoundException(id);

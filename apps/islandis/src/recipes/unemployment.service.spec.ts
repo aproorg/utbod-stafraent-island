@@ -2,6 +2,8 @@ import { INestApplication } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { Test, TestingModule } from '@nestjs/testing';
 import { UnemploymentDomainModule } from './unemployment.module';
+import { GraphQLClient, gql } from 'graphql-request';
+import { BenefitApplication } from './models/recipe.model';
 
 describe('UnemploymentService', () => {
   let app: INestApplication;
@@ -18,13 +20,28 @@ describe('UnemploymentService', () => {
 
     app = module.createNestApplication();
     await app.init();
+    await app.listen(10000);
   });
 
   afterAll(async () => {
     await app.close();
   });
 
-  it('should be defined', () => {
-    expect(app).toBeDefined();
+  it('should return some object with same ID', async () => {
+    const endpoint = await app.getUrl();
+    const client = new GraphQLClient(`${endpoint}/graphql`, {});
+
+    const mutation = gql`
+      {
+        recipe(id: "0") {
+          id
+        }
+      }
+    `;
+    expect(await client.request<BenefitApplication>(mutation)).toStrictEqual({
+      recipe: {
+        id: '1',
+      },
+    });
   });
 });
