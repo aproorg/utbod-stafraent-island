@@ -6,9 +6,8 @@ locals {
     "Business Unit" = "IT",
     "Customer"      = "General",
     "terraform"     = "true",
-    "state"         = "ecs"
+    "state"         = "postgres-schemas"
   })
-  vpc_id = data.terraform_remote_state.networking.outputs.applications_vpc_id
 }
 
 terraform {
@@ -16,11 +15,17 @@ terraform {
     encrypt = true
     bucket  = "staging-utbod-stafraent-island-terraform-state"
     region  = "eu-west-1"
-    key     = "ecs/terraform.tfstate"
+    key     = "postgres-schemas/terraform.tfstate"
   }
 }
 
 terraform {
+  required_providers {
+    postgresql = {
+      source  = "cyrilgdn/postgresql"
+      version = "1.13.0"
+    }
+  }
   required_version = ">= 0.15.5"
 }
 
@@ -31,16 +36,25 @@ provider "aws" {
   }
 }
 
-data "terraform_remote_state" "networking" {
+data "terraform_remote_state" "rds_aurora" {
   backend = "s3"
 
   config = {
     region = local.aws_region
     bucket = "${local.env}-utbod-stafraent-island-terraform-state"
-    key    = "networking/terraform.tfstate"
+    key    = "rds_aurora/terraform.tfstate"
   }
 }
 
-data "aws_route53_zone" "island_andes_cloud" {
-  name = "island.andes.cloud"
+data "aws_ssm_parameter" "master_password" {
+  name = data.terraform_remote_state.rds_aurora.outputs.master_password_ssm_parameter_name
+}
+
+provider "postgresql" {
+  username  = "root"
+  host      = "localhost"
+  database  = "postgres"
+  port      = 5432
+  superuser = false
+  password  = data.aws_ssm_parameter.master_password.value
 }

@@ -6,9 +6,8 @@ locals {
     "Business Unit" = "IT",
     "Customer"      = "General",
     "terraform"     = "true",
-    "state"         = "ecs"
+    "state"         = "rds_aurora"
   })
-  vpc_id = data.terraform_remote_state.networking.outputs.applications_vpc_id
 }
 
 terraform {
@@ -16,7 +15,7 @@ terraform {
     encrypt = true
     bucket  = "staging-utbod-stafraent-island-terraform-state"
     region  = "eu-west-1"
-    key     = "ecs/terraform.tfstate"
+    key     = "rds_aurora/terraform.tfstate"
   }
 }
 
@@ -41,6 +40,22 @@ data "terraform_remote_state" "networking" {
   }
 }
 
-data "aws_route53_zone" "island_andes_cloud" {
-  name = "island.andes.cloud"
+data "terraform_remote_state" "ecs" {
+  backend = "s3"
+
+  config = {
+    region = local.aws_region
+    bucket = "${local.env}-utbod-stafraent-island-terraform-state"
+    key    = "ecs/terraform.tfstate"
+  }
+}
+
+data "terraform_remote_state" "bastion" {
+  backend = "s3"
+
+  config = {
+    region = local.aws_region
+    bucket = "${local.env}-utbod-stafraent-island-terraform-state"
+    key    = "bastion/terraform.tfstate"
+  }
 }

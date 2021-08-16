@@ -15,18 +15,10 @@ locals {
 module "api" {
   source         = "../../../modules/services/api"
   common         = local.common_private
-  service_name   = "vmst-${local.env}"
+  service_name   = "islandis-${local.env}"
   desired_count  = 1
   host           = data.aws_route53_zone.island_andes_cloud.name
   image_tag      = local.image_tag
   env            = local.env
-  repository_url = data.terraform_remote_state.ecr.outputs.vmst_repository_url
-  environment = {
-    DB_USER = "vmst"
-    DB_NAME = "vmst"
-    DB_HOST = "db.${data.terraform_remote_state.networking.outputs.private_zone_name}"
-  }
-  secrets = {
-          DB_PASS = "/ecs/vmst-${local.env}/DB_PASSWORD"
-        }
+  repository_url = data.terraform_remote_state.ecr.outputs.island_is_repository_url
 }

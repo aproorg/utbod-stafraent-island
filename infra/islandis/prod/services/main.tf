@@ -6,9 +6,10 @@ locals {
     "Business Unit" = "IT",
     "Customer"      = "General",
     "terraform"     = "true",
-    "state"         = "ecs"
+    "state"         = "services"
   })
-  vpc_id = data.terraform_remote_state.networking.outputs.applications_vpc_id
+  ecr_repositories = ["api"]
+  vpc_id           = data.terraform_remote_state.networking.outputs.applications_vpc_id
 }
 
 terraform {
@@ -16,7 +17,7 @@ terraform {
     encrypt = true
     bucket  = "staging-utbod-stafraent-island-terraform-state"
     region  = "eu-west-1"
-    key     = "ecs/terraform.tfstate"
+    key     = "services/terraform.tfstate"
   }
 }
 
@@ -31,12 +32,23 @@ provider "aws" {
   }
 }
 
-data "terraform_remote_state" "networking" {
+
+data "terraform_remote_state" "ecs" {
   backend = "s3"
 
   config = {
     region = local.aws_region
     bucket = "${local.env}-utbod-stafraent-island-terraform-state"
+    key    = "ecs/terraform.tfstate"
+  }
+}
+
+data "terraform_remote_state" "networking" {
+  backend = "s3"
+
+  config = {
+    region = local.aws_region
+    bucket = "dev-utbod-stafraent-island-terraform-state"
     key    = "networking/terraform.tfstate"
   }
 }

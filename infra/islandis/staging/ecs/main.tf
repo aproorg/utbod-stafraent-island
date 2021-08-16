@@ -16,7 +16,7 @@ terraform {
     encrypt = true
     bucket  = "staging-utbod-stafraent-island-terraform-state"
     region  = "eu-west-1"
-    key     = "ecs/terraform.tfstate"
+    key     = "islandis/ecs/terraform.tfstate"
   }
 }
 
@@ -37,7 +37,7 @@ data "terraform_remote_state" "networking" {
   config = {
     region = local.aws_region
     bucket = "${local.env}-utbod-stafraent-island-terraform-state"
-    key    = "networking/terraform.tfstate"
+    key    = "islandis/networking/terraform.tfstate"
   }
 }
 

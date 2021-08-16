@@ -8,3 +8,7 @@ output "applications_alb_security_group" {
   value       = aws_security_group.alb.id
 }
 
+output "applications_alb_arb" {
+  description = "ALB ARN"
+  value       = aws_lb.alb.arn
+}

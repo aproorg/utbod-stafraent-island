@@ -28,9 +28,7 @@ module "api" {
           DB_NAME = "api"
           DB_HOST = var.db_host
         }, var.environment)
-        secrets = {
-          DB_PASS = "/ecs/${var.service_name}/DB_PASSWORD"
-        }
+        secrets = var.secrets
       },
       {
         name       = "migration"
@@ -43,9 +41,7 @@ module "api" {
           DB_NAME = "api"
           DB_HOST = var.db_host
         }, var.environment)
-        secrets = {
-          DB_PASS = "/ecs/${var.service_name}/DB_PASSWORD"
-        }
+        secrets = var.secrets
       }
     ]
   }

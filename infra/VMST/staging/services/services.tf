@@ -28,4 +28,7 @@ module "api" {
     DB_NAME = "vmst"
     DB_HOST = "db.${data.terraform_remote_state.networking.outputs.private_zone_name}"
   }
+  secrets = {
+          DB_PASS = "/ecs/vmst-${local.env}/DB_PASSWORD"
+        }
 }

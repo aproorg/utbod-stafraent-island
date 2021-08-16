@@ -1,7 +1,7 @@
 module "ecs_cluster" {
   source = "../../../modules/ecs-cluster"
 
-  name   = "island-vmst-${local.env}"
+  name   = "island-islandis-${local.env}"
   env    = local.env
   vpc_id = data.terraform_remote_state.networking.outputs.applications_vpc_id
   default_capacity_provider_strategy = [
@@ -17,17 +17,17 @@ module "alb" {
 
   vpc_id    = local.vpc_id
   zone_id   = data.aws_route53_zone.island_andes_cloud.zone_id
-  zone_name = "${local.env}.vmst.${data.aws_route53_zone.island_andes_cloud.name}"
+  zone_name = "${local.env}.islandis.${data.aws_route53_zone.island_andes_cloud.name}"
 
   subnets = data.terraform_remote_state.networking.outputs.applications_public_subnets
 
-  env = local.env
+  env = "islandis-${local.env}"
 }
 
 module "wafv2" {
   source = "git@github.com:andesorg/terraform-modules.git//wafv2?ref=v0.1.1"
 
-  name                           = "VMST-${local.env}"
+  name                           = "islandis-${local.env}"
   global                         = false
   dryrun                         = false
   log_destinations               = []
@@ -45,7 +45,7 @@ resource "aws_wafv2_web_acl_association" "waf_alb" {
 }
 
 resource "aws_security_group" "shared" {
-  name        = "services-shared-sg-vmst-${local.env}"
+  name        = "services-shared-sg-islandis-${local.env}"
   description = "Shared security group for all services"
   vpc_id      = local.vpc_id
 }

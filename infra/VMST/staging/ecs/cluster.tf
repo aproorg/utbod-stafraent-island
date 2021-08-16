@@ -1,7 +1,7 @@
 module "ecs_cluster" {
   source = "../../../modules/ecs-cluster"
 
-  name   = "island-${local.env}"
+  name   = "island-vmst-${local.env}"
   env    = local.env
   vpc_id = data.terraform_remote_state.networking.outputs.applications_vpc_id
 
@@ -23,6 +23,26 @@ module "alb" {
   subnets = data.terraform_remote_state.networking.outputs.applications_public_subnets
 
   env = local.env
+}
+
+module "wafv2" {
+  source = "git@github.com:andesorg/terraform-modules.git//wafv2?ref=v0.1.1"
+
+  name                           = "VMST-${local.env}"
+  global                         = false
+  dryrun                         = false
+  log_destinations               = []
+  bot_exclude_rule               = []
+  aws_manage_common_exclude_rule = []
+
+  providers = {
+    aws = aws
+  }
+}
+
+resource "aws_wafv2_web_acl_association" "waf_alb" {
+  resource_arn = module.alb.applications_alb_arb
+  web_acl_arn  = module.wafv2.web_acl_arn
 }
 
 resource "aws_security_group" "shared" {

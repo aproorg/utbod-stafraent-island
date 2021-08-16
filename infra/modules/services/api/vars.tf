@@ -27,6 +27,11 @@ variable "environment" {
   default = {}
 }
 
+variable "secrets" {
+  type    = any
+  default = {}
+}
+
 variable "host" {
   type = string
 }
