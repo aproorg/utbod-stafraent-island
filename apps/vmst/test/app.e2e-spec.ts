@@ -16,34 +16,32 @@ describe('AppController (e2e)', () => {
   });
 
   it('/ (GET)', () => {
-    return request(app.getHttpServer())
-      .get('/api/applications')
-      .expect(200)
-      // .expect([
-      //   {
-      //     id: 1,
-      //     firstName: 'Davíð Guðni',
-      //     lastName: 'Halldórsson',
-      //     isActive: true,
-      //     createdAt: '2021-08-12T11:20:52.089Z',
-      //     updatedAt: null,
-      //   },
-      //   {
-      //     id: 2,
-      //     firstName: 'Petar',
-      //     lastName: 'Shomov',
-      //     isActive: true,
-      //     createdAt: '2021-08-12T11:20:52.089Z',
-      //     updatedAt: null,
-      //   },
-      //   {
-      //     id: 3,
-      //     firstName: 'Sindri',
-      //     lastName: 'Guðmundsson',
-      //     isActive: true,
-      //     createdAt: '2021-08-12T11:20:52.089Z',
-      //     updatedAt: null,
-      //   },
-      // ]);
+    return request(app.getHttpServer()).get('/api/applications').expect(200);
+    // .expect([
+    //   {
+    //     id: 1,
+    //     firstName: 'Davíð Guðni',
+    //     lastName: 'Halldórsson',
+    //     isActive: true,
+    //     createdAt: '2021-08-12T11:20:52.089Z',
+    //     updatedAt: null,
+    //   },
+    //   {
+    //     id: 2,
+    //     firstName: 'Petar',
+    //     lastName: 'Shomov',
+    //     isActive: true,
+    //     createdAt: '2021-08-12T11:20:52.089Z',
+    //     updatedAt: null,
+    //   },
+    //   {
+    //     id: 3,
+    //     firstName: 'Sindri',
+    //     lastName: 'Guðmundsson',
+    //     isActive: true,
+    //     createdAt: '2021-08-12T11:20:52.089Z',
+    //     updatedAt: null,
+    //   },
+    // ]);
   });
 });
