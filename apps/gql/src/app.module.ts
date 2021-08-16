@@ -1,21 +1,31 @@
-import { Module } from "@nestjs/common";
-import { SequelizeModule } from "@nestjs/sequelize";
+import { Module } from '@nestjs/common';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { GraphQLModule } from '@nestjs/graphql';
+import { Field, Int, ObjectType } from '@nestjs/graphql';
+import { join } from 'path';
+import { RecipesModule } from './recipes/recipes.module';
 
-import { AuthModule } from "@island.is/auth-nest-tools";
-import { AuditModule } from "@island.is/nest/audit";
+@ObjectType()
+export class Post {
+  @Field((type) => Int)
+  id: number;
 
-import { environment } from "../environments";
-import { ResourceModule } from "./app/modules/resource/resource.module";
-import { SequelizeConfigService } from "./sequelizeConfig.service";
+  @Field()
+  title: string;
+
+  @Field((type) => Int, { nullable: true })
+  votes?: number;
+}
 
 @Module({
   imports: [
-    AuthModule.register(environment.auth),
-    AuditModule.forRoot(environment.audit),
-    SequelizeModule.forRootAsync({
-      useClass: SequelizeConfigService,
+    RecipesModule,
+    GraphQLModule.forRoot({
+      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
     }),
-    ResourceModule,
   ],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}

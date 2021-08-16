@@ -1,9 +1,8 @@
-import { bootstrap } from "./infra-nest-server/src/index";
-import { AppModule } from "./app/app.module";
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app.module';
 
-bootstrap({
-  appModule: AppModule,
-  name: "api",
-  port: 4444,
-  stripNonClassValidatorInputs: false,
-});
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+  await app.listen(3000);
+}
+bootstrap();
