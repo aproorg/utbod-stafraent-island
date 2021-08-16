@@ -13,13 +13,13 @@ locals {
 
 
 module "api" {
-  source = "../../../modules/services/api"
-  common = local.common_private
-  service_name = "vmst-${local.env}"
-  desired_count = 1
-  host          = data.aws_route53_zone.island_andes_cloud.name
-  image_tag     = local.image_tag
-  env           = local.env
+  source         = "../../../modules/services/api"
+  common         = local.common_private
+  service_name   = "vmst-${local.env}"
+  desired_count  = 1
+  host           = data.aws_route53_zone.island_andes_cloud.name
+  image_tag      = local.image_tag
+  env            = local.env
   repository_url = data.terraform_remote_state.ecr.outputs.vmst_repository_url
   environment = {
     DB_USER = "vmst"

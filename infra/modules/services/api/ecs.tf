@@ -42,7 +42,7 @@ module "api" {
           DB_USER = "api"
           DB_NAME = "api"
           DB_HOST = var.db_host
-        },var.environment)
+        }, var.environment)
         secrets = {
           DB_PASS = "/ecs/${var.service_name}/DB_PASSWORD"
         }

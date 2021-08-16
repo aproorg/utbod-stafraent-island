@@ -1,6 +1,6 @@
 module "rds_aurora" {
-  source = "../../../modules/rds_aurora"
-  name   = "island-${local.env}"
+  source    = "../../../modules/rds_aurora"
+  name      = "island-${local.env}"
   zone_name = data.terraform_remote_state.networking.outputs.private_zone_name
 
   subnets = data.terraform_remote_state.networking.outputs.database_subnets
