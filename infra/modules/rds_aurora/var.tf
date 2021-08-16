@@ -27,3 +27,7 @@ variable "instance_type" {
   type    = string
   default = "db.t3.medium"
 }
+
+variable "zone_name" {
+  type = string
+}

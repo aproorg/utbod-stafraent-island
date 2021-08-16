@@ -10,7 +10,7 @@ data "aws_ami" "amazon_linux_2" {
 }
 
 resource "aws_security_group" "bastion" {
-  name   = "bastion-sg"
+  name   = "bastion-sg-${var.env}"
   vpc_id = var.vpc_id
 
   egress {
@@ -33,11 +33,11 @@ resource "aws_instance" "bastion" {
   user_data = <<EOF
     #!/bin/bash
     sudo yum update -y && sudo yum install -y socat
-    socat TCP-LISTEN:5432,reuseaddr,fork TCP4:db.applications.internal:5432 &
+    socat TCP-LISTEN:5432,reuseaddr,fork TCP4:${var.db_domain}:5432 &
   EOF
 
   tags = {
-    Name = "Bastion Host"
+    Name = "Bastion Host ${var.env}"
   }
 
   lifecycle {

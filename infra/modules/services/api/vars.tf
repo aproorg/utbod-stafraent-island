@@ -31,3 +31,14 @@ variable "host" {
   type = string
 }
 
+variable "env" {
+  type = string
+}
+
+variable "repository_url" {
+  type = string
+}
+
+variable "service_name" {
+  type = string
+}

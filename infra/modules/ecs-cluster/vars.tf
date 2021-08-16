@@ -8,3 +8,11 @@ variable "default_capacity_provider_strategy" {
     weight            = number
   }))
 }
+
+variable "vpc_id" {
+  type = string
+}
+
+variable "env" {
+  type = string
+}

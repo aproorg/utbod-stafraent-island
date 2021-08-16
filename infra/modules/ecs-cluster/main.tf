@@ -17,3 +17,9 @@ resource "aws_ecs_cluster" "cluster" {
     value = "enabled"
   }
 }
+
+resource "aws_service_discovery_private_dns_namespace" "services" {
+  name        = "services.${var.env}.internal"
+  description = "ECS services"
+  vpc         = var.vpc_id
+}

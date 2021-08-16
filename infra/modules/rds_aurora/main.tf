@@ -49,13 +49,13 @@ resource "aws_ssm_parameter" "master_password" {
 }
 
 data "aws_route53_zone" "internal" {
-  name         = "applications.internal"
+  name         = var.zone_name
   private_zone = true
 }
 
 resource "aws_route53_record" "alias_route53_record" {
   zone_id = data.aws_route53_zone.internal.zone_id
-  name    = "db.applications.internal"
+  name    = "db.${var.zone_name}"
   type    = "CNAME"
   ttl     = "30"
 
