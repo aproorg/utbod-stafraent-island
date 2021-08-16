@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { Field, Int, ObjectType } from '@nestjs/graphql';
-import { join } from 'path';
 import { UnemploymentDomainModule } from './recipes/unemployment.module';
+import { LivenessModule } from './liveness';
 
 @ObjectType()
 export class Post {
@@ -22,6 +22,7 @@ export class Post {
     GraphQLModule.forRoot({
       autoSchemaFile: true,
     }),
+    LivenessModule,
   ],
 })
 export class AppModule {}
