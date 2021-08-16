@@ -23,7 +23,7 @@ jobs:
     strategy:
       matrix:
         service:
-          - api
+          - vmst
 
     steps:
       - uses: actions/checkout@v2

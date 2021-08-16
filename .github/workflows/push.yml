@@ -18,7 +18,7 @@ jobs:
     strategy:
       matrix:
         service:
-          - api
+          - vmst
 
     steps:
       - uses: actions/checkout@v2
@@ -53,7 +53,7 @@ jobs:
     strategy:
       matrix:
         service:
-          - api
+          - vmst
 
     steps:
       - name: Configure AWS credentials
@@ -63,7 +63,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-west-1
       - name: Restart ecs service
-        run: aws ecs update-service --cluster=island-dev --service=${{ matrix.service }} --force-new-deployment
+        run: aws ecs update-service --cluster=island-dev --service=${{ matrix.service }}-dev --force-new-deployment
 
       - name: Wait for service to stabilize
-        run: aws ecs wait services-stable --cluster=island-dev --services=${{ matrix.service }}
+        run: aws ecs wait services-stable --cluster=island-dev --services=${{ matrix.service }}-dev

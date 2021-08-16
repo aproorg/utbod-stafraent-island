@@ -1,9 +1,9 @@
 version: '3.3'
 
 services:
-  db_api:
+  db_vmst:
     image: postgres:13.3
-    container_name: db_api
+    container_name: db_vmst
     ports:
       - 5432:5432
     networks:

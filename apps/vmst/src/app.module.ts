@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
 
-import { UserModule } from './users';
+import { ApplicationModule } from './applications';
 import { LivenessModule } from './liveness';
 import { SequelizeConfigService } from './sequelizeConfig.service';
 
@@ -10,7 +10,7 @@ import { SequelizeConfigService } from './sequelizeConfig.service';
     SequelizeModule.forRootAsync({
       useClass: SequelizeConfigService,
     }),
-    UserModule,
+    ApplicationModule,
     LivenessModule,
   ],
 })
