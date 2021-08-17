@@ -33,6 +33,10 @@ jobs:
 
       - uses: hashicorp/setup-terraform@v1
 
+      - name: Init
+        run: terraform init
+        working-directory: infra/dev/thjodskra
+
       - name: Apply
         run: terraform apply -auto-approve -target=module.lambda_function
         working-directory: infra/dev/thjodskra
