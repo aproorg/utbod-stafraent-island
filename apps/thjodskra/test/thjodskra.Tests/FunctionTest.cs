@@ -22,28 +22,28 @@ namespace thjodskra.Tests
         public async Task TestGetCitizen()
         {
             var client = new Mock<IDynamoDBContext>();
-            client.Setup(c => c.LoadAsync<Citizen>(It.IsAny<string>(), default).Result).Returns(new Citizen{SSN = "1234567890"});
+            client.Setup(c => c.LoadAsync<Citizen>(It.IsAny<string>(), default).Result).Returns(new Citizen { SSN = "1234567890" });
             var function = new Function(client.Object);
             var context = new TestLambdaContext();
             var requestStr = File.ReadAllText("./SampleRequests/GetCitizen.json");
             var request = JsonConvert.DeserializeObject<APIGatewayProxyRequest>(requestStr);
             var response = await function.FunctionHandler(request, context);
 
-            Assert.Equal(response.StatusCode, 200);            
+            Assert.Equal(response.StatusCode, 200);
             Assert.Equal("{\"SSN\":\"1234567890\",\"Name\":null,\"Address\":null,\"Email\":null,\"Phone\":null,\"Children\":[],\"Spouse\":null}", response.Body);
         }
         [Fact]
         public async Task TestBadRequest()
         {
             var client = new Mock<IDynamoDBContext>();
-            client.Setup(c => c.LoadAsync<Citizen>(It.IsAny<string>(), default).Result).Returns(new Citizen{SSN = "1234567890"});
+            client.Setup(c => c.LoadAsync<Citizen>(It.IsAny<string>(), default).Result).Returns(new Citizen { SSN = "1234567890" });
             var function = new Function(client.Object);
             var context = new TestLambdaContext();
             var requestStr = File.ReadAllText("./SampleRequests/BadRequest.json");
             var request = JsonConvert.DeserializeObject<APIGatewayProxyRequest>(requestStr);
             var response = await function.FunctionHandler(request, context);
 
-            Assert.Equal(response.StatusCode, 400);            
+            Assert.Equal(response.StatusCode, 400);
         }
         [Fact]
         public async Task TestCitizenNotFound()
@@ -56,7 +56,7 @@ namespace thjodskra.Tests
             var request = JsonConvert.DeserializeObject<APIGatewayProxyRequest>(requestStr);
             var response = await function.FunctionHandler(request, context);
 
-            Assert.Equal(response.StatusCode, 404);            
+            Assert.Equal(response.StatusCode, 404);
         }
     }
 }

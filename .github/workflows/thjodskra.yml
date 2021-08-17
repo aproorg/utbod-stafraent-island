@@ -30,6 +30,15 @@ jobs:
 
       - name: Lint
         run: dotnet format --check
+        working-directory: apps/thjodskra/src/thjodskra
+
+      - name: Lint
+        run: dotnet format --check
+        working-directory: apps/thjodskra/test/thjodskra.Tests
+
+      - name: Test
+        run: dotnet test
+        working-directory: apps/thjodskra/test/thjodskra.Tests
 
       - name: Build lambda
         run: ./build-lambda.sh

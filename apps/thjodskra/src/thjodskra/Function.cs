@@ -25,7 +25,7 @@ namespace thjodskra
         public Function()
         {
             var tableName = System.Environment.GetEnvironmentVariable(TABLENAME_ENVIRONMENT_VARIABLE);
-            if(!string.IsNullOrEmpty(tableName))
+            if (!string.IsNullOrEmpty(tableName))
             {
                 AWSConfigsDynamoDB.Context.TypeMappings[typeof(Citizen)] = new Amazon.Util.TypeMapping(typeof(Citizen), tableName);
             }
@@ -40,7 +40,7 @@ namespace thjodskra
 
         public async Task<APIGatewayProxyResponse> FunctionHandler(APIGatewayProxyRequest request, ILambdaContext context)
         {
-            
+
             string ssn = null;
             if (request.PathParameters != null && request.PathParameters.ContainsKey(ID_QUERY_STRING_NAME))
                 ssn = request.PathParameters[ID_QUERY_STRING_NAME];
