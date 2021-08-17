@@ -25,7 +25,8 @@ jobs:
 
       - name: Upload swagger
         run: |
-          tmp_dir=$(mktemp -d)
-          docker run -v $(pwd):/tmp/input -v $tmp_dir:/tmp/output swaggerapi/swagger-codegen-cli-v3 generate -i /tmp/input/api.yaml -l html2 -o /tmp/output
-          aws s3 sync $tmp_dir s3://thjodskra-prod-swagger-origin
+          # tmp_dir=$(mktemp -d)
+          # docker run -v $(pwd):/tmp/input -v $tmp_dir:/tmp/output swaggerapi/swagger-codegen-cli-v3 generate -i /tmp/input/api.yaml -l html2 -o /tmp/output
+          # aws s3 sync $tmp_dir s3://thjodskra-prod-swagger-origin
+          aws s3 sync swagger s3://thjodskra-prod-swagger-origin
         working-directory: infra/thjodskra
