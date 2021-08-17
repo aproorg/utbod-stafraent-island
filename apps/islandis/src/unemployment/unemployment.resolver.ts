@@ -2,8 +2,6 @@ import { Inject, Logger, NotFoundException } from '@nestjs/common';
 import { Args, InputType, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { UnemployemntApplicationOutput } from './models/model';
 import { UnemploymentApplicationInput } from './models/model';
-import { DefaultApi as VMSTApi } from '../../gen/vmst';
-import { DefaultApi as NationalRegistryAPI } from '../../gen/thjodskra';
 import {
   NationalRegistryAPIService,
   VMSTApiService,
