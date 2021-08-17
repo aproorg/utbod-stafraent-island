@@ -5,7 +5,7 @@ module.exports = {
     return queryInterface.sequelize.query(`
       BEGIN;
         CREATE TABLE applications (
-          id UUID DEFAULT uuid_generate_v4(),
+          id UUID NOT NULL,
           name VARCHAR NOT NULL,
           address VARCHAR NOT NULL,
           postal_code INTEGER NOT NULL,
