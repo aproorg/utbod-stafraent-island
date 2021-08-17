@@ -61,7 +61,6 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: ${{ env.COMMIT_MSG }}
-          skip_fetch: true
       - name: Wait for service to stabilize
         run: aws ecs wait services-stable --cluster=island-${{ matrix.service }}-$ENVIRONMENT --services=${{ matrix.service }}-$ENVIRONMENT
 
@@ -97,6 +96,5 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: ${{ env.COMMIT_MSG }}
-          skip_fetch: true
       - name: Stabilize
         run: aws ecs wait services-stable --cluster=island-${{ matrix.service }}-$ENVIRONMENT --services=${{ matrix.service }}-$ENVIRONMENT
