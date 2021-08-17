@@ -39,11 +39,29 @@ export class ApplicationService {
     });
   }
 
-  update(
+  async update(
     application: Application,
     body: CreateApplicationBody,
   ): Promise<Application> {
-    return application.update(body);
+    await Promise.all(
+      application.preferredJobs.map((preferredJob) => preferredJob.destroy()),
+    );
+    await Promise.all(
+      body.preferredJobs.map((preferredJob) =>
+        this.preferredJobModel.create({
+          ...preferredJob,
+          applicationId: application.id,
+        }),
+      ),
+    );
+    await Promise.all(application.children.map((child) => child.destroy()));
+    await Promise.all(
+      body.children.map((child) =>
+        this.childModel.create({ ...child, applicationId: application.id }),
+      ),
+    );
+    await application.update(body);
+    return application;
   }
 
   async delete(application: Application): Promise<Application> {

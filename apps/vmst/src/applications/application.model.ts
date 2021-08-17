@@ -1,12 +1,10 @@
 import {
   Column,
-  CreatedAt,
   DataType,
   ForeignKey,
   HasMany,
   Model,
   Table,
-  UpdatedAt,
 } from 'sequelize-typescript';
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -29,14 +27,6 @@ export class PreferredJob extends Model {
   })
   @ApiProperty()
   job: string;
-
-  @CreatedAt
-  @ApiProperty()
-  readonly createdAt: Date;
-
-  @UpdatedAt
-  @ApiProperty()
-  readonly updatedAt: Date;
 }
 
 @Table({ tableName: 'children' })
@@ -65,14 +55,6 @@ export class Child extends Model {
   })
   @ApiProperty()
   name: string;
-
-  @CreatedAt
-  @ApiProperty()
-  readonly createdAt: Date;
-
-  @UpdatedAt
-  @ApiProperty()
-  readonly updatedAt: Date;
 }
 
 @Table
@@ -128,12 +110,4 @@ export class Application extends Model {
   @HasMany(() => PreferredJob)
   @ApiProperty({ type: [PreferredJob] })
   preferredJobs: PreferredJob[];
-
-  @CreatedAt
-  @ApiProperty()
-  readonly createdAt: Date;
-
-  @UpdatedAt
-  @ApiProperty()
-  readonly updatedAt: Date;
 }

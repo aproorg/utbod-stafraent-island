@@ -8,53 +8,78 @@ import {
   Query,
   Body,
   NotFoundException,
+  HttpCode,
 } from '@nestjs/common';
-import { ApiOkResponse, ApiCreatedResponse } from '@nestjs/swagger';
+import {
+  ApiOkResponse,
+  ApiCreatedResponse,
+  ApiNoContentResponse,
+} from '@nestjs/swagger';
+import { classToPlain, plainToClass } from 'class-transformer';
 
 import { ApplicationService } from './application.service';
 import { Application } from './application.model';
-import { GetApplicationsQuery, CreateApplicationBody } from './dto';
+import {
+  GetApplicationsQuery,
+  CreateApplicationBody,
+  ApplicationViewModel,
+  ApplicationIdParams,
+} from './dto';
 
 @Controller('/api/applications')
 export class ApplicationController {
   constructor(private readonly applicationService: ApplicationService) {}
 
   @Get()
-  @ApiOkResponse({ type: Application })
-  getApplications(
+  @ApiOkResponse({ type: ApplicationViewModel })
+  async getApplications(
     @Query() query: GetApplicationsQuery,
-  ): Promise<Application[]> {
-    return this.applicationService.findAll(query.nationalId);
+  ): Promise<ApplicationViewModel[]> {
+    const applications = await this.applicationService.findAll(
+      query.nationalId,
+    );
+    return this.serializeMany(applications);
   }
 
   @Get(':id')
-  @ApiOkResponse({ type: Application })
-  getApplicationById(@Param('id') id: string): Promise<Application> {
-    return this.getApplicationByIdOrThrowNotFound(id);
+  @ApiOkResponse({ type: ApplicationViewModel })
+  async getApplicationById(
+    @Param() params: ApplicationIdParams,
+  ): Promise<ApplicationViewModel> {
+    const application = await this.getApplicationByIdOrThrowNotFound(params.id);
+    return this.serialize(application);
   }
 
   @Post()
-  @ApiCreatedResponse({ type: Application })
-  createApplication(@Body() body: CreateApplicationBody): Promise<Application> {
-    return this.applicationService.create(body);
+  @HttpCode(201)
+  @ApiCreatedResponse({ type: ApplicationViewModel })
+  async createApplication(
+    @Body() body: CreateApplicationBody,
+  ): Promise<ApplicationViewModel> {
+    const application = await this.applicationService.create(body);
+    return this.serialize(application);
   }
 
   @Put(':id')
-  @ApiCreatedResponse({ type: Application })
+  @ApiCreatedResponse({ type: ApplicationViewModel })
   async updateApplication(
-    @Param('id') id: string,
+    @Param() params: ApplicationIdParams,
     @Body() body: CreateApplicationBody,
-  ): Promise<Application> {
-    const application = await this.getApplicationByIdOrThrowNotFound(id);
-    return this.applicationService.update(application, body);
+  ): Promise<ApplicationViewModel> {
+    const application = await this.getApplicationByIdOrThrowNotFound(params.id);
+    const updatedApplication = await this.applicationService.update(
+      application,
+      body,
+    );
+    return this.serialize(updatedApplication);
   }
 
   @Delete(':id')
-  @ApiCreatedResponse({ type: Application })
-  async deleteApplication(@Param('id') id: string): Promise<Application> {
-    const application = await this.getApplicationByIdOrThrowNotFound(id);
+  @HttpCode(204)
+  @ApiNoContentResponse()
+  async deleteApplication(@Param() params: ApplicationIdParams): Promise<void> {
+    const application = await this.getApplicationByIdOrThrowNotFound(params.id);
     await this.applicationService.delete(application);
-    return application;
   }
 
   private async getApplicationByIdOrThrowNotFound(
@@ -65,5 +90,17 @@ export class ApplicationController {
       throw new NotFoundException(`Application<${id}> not found`);
     }
     return application;
+  }
+
+  private serializeMany(applications: Application[]): ApplicationViewModel[] {
+    return applications.map((application) => this.serialize(application));
+  }
+
+  private serialize(application: Application): ApplicationViewModel {
+    return plainToClass(
+      ApplicationViewModel,
+      classToPlain(application.get({ plain: true })),
+      { excludeExtraneousValues: true },
+    );
   }
 }
