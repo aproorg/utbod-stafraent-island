@@ -1,6 +1,6 @@
 import { Inject, Logger, NotFoundException } from '@nestjs/common';
 import { Args, InputType, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { BenefitApplication } from './models/model';
+import { UnemployemntApplicationOutput } from './models/model';
 import { UnemploymentApplicationInput } from './models/model';
 import { DefaultApi as VMSTApi } from '../../gen/vmst';
 import { DefaultApi as NationalRegistryAPI } from '../../gen/thjodskra';
@@ -12,7 +12,7 @@ import {
 @InputType()
 export class CreateApplicationInput {}
 
-@Resolver((of) => BenefitApplication)
+@Resolver((of) => UnemployemntApplicationOutput)
 export class UnemploymentResolver {
   private readonly logger = new Logger(UnemploymentResolver.name);
   constructor(
@@ -20,12 +20,12 @@ export class UnemploymentResolver {
     @Inject('NATREG') private readonly natRegApi: NationalRegistryAPIService,
   ) {}
 
-  @Mutation((type) => BenefitApplication)
+  @Mutation((type) => UnemployemntApplicationOutput)
   async submitApplication(
     @Args({ name: 'application', type: () => UnemploymentApplicationInput })
     application: UnemploymentApplicationInput,
-  ): Promise<BenefitApplication> {
-    const natInfo = await this.natRegApi.citizenSSNGet(application.socialId);
+  ): Promise<UnemployemntApplicationOutput> {
+    const natInfo = await this.natRegApi.citizenSSNGet(application.nationalId);
     try {
       const app = await this.vmstApi.applicationControllerCreateApplication({
         postalCode: natInfo.data.PostalCode,
@@ -34,13 +34,13 @@ export class UnemploymentResolver {
           job: job.name,
         })),
         address: natInfo.data.Address,
-        nationalId: application.socialId,
+        nationalId: application.nationalId,
         children: await Promise.all(
           application.children.map(async (child) => ({
             name: (
-              await this.natRegApi.citizenSSNGet(child.socialId)
+              await this.natRegApi.citizenSSNGet(child.nationalId)
             ).data.Name,
-            nationalId: child.socialId,
+            nationalId: child.nationalId,
           })),
         ),
         name: natInfo.data.Name,
@@ -55,10 +55,10 @@ export class UnemploymentResolver {
     }
   }
 
-  @Query((returns) => BenefitApplication)
+  @Query((returns) => UnemployemntApplicationOutput)
   async getApplicationById(
     @Args('id') id: string,
-  ): Promise<BenefitApplication> {
+  ): Promise<UnemployemntApplicationOutput> {
     const app = await this.vmstApi.applicationControllerGetApplicationById(id);
     return app.data;
   }

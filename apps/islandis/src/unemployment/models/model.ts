@@ -1,5 +1,3 @@
-import { Injectable } from '@nestjs/common';
-
 import {
   createUnionType,
   Field,
@@ -45,9 +43,7 @@ registerEnumType(Regions, {
 @InputType()
 export class Child {
   @Field()
-  name: string;
-  @Field()
-  socialId: string;
+  nationalId: string;
 }
 
 @ObjectType()
@@ -62,7 +58,7 @@ export class UnemploymentApplicationInput {
   @Field()
   @MaxLength(10)
   @ApiProperty()
-  socialId: string;
+  nationalId: string;
 
   @Field((type) => [Child])
   @ApiProperty()
@@ -76,7 +72,7 @@ export class UnemploymentApplicationInput {
 }
 
 @ObjectType()
-export class BenefitApplication {
+export class UnemployemntApplicationOutput {
   @Field((type) => ID)
   id: string;
 }
