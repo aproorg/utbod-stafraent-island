@@ -7,6 +7,8 @@ module "lambda_function" {
   handler       = "thjodskra::thjodskra.Function::FunctionHandler"
   runtime       = "dotnetcore3.1"
 
+  memory_size = 512
+
   timeout = 60
 
   publish = true
