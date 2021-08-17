@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
 
-import { ApplicationModule } from './applications';
+import { ApplicationModuleV1 } from './applications-v1';
+import { ApplicationModuleV2 } from './applications-v2';
 import { LivenessModule } from './liveness';
 import { SequelizeConfigService } from './sequelizeConfig.service';
 
@@ -10,7 +11,8 @@ import { SequelizeConfigService } from './sequelizeConfig.service';
     SequelizeModule.forRootAsync({
       useClass: SequelizeConfigService,
     }),
-    ApplicationModule,
+    ApplicationModuleV1,
+    ApplicationModuleV2,
     LivenessModule,
   ],
 })

@@ -10,7 +10,7 @@ import { ApiProperty } from '@nestjs/swagger';
 
 import { NationalIdValidator, NoDuplicateValidator } from './validators.dto';
 
-class CreateChildBody {
+class CreateChildBodyV1 {
   @IsString()
   @ApiProperty()
   readonly name: string;
@@ -20,13 +20,13 @@ class CreateChildBody {
   readonly nationalId: string;
 }
 
-class CreatePreferredJobBody {
+class CreatePreferredJobBodyV1 {
   @IsString()
   @ApiProperty()
   readonly job: string;
 }
 
-export class CreateApplicationBody {
+export class CreateApplicationBodyV1 {
   @IsString()
   @ApiProperty()
   readonly name: string;
@@ -49,14 +49,14 @@ export class CreateApplicationBody {
 
   @Validate(NoDuplicateValidator, ['nationalId'])
   @ValidateNested({ each: true })
-  @Type(() => CreateChildBody)
-  @ApiProperty({ type: [CreateChildBody] })
-  readonly children!: CreateChildBody[];
+  @Type(() => CreateChildBodyV1)
+  @ApiProperty({ type: [CreateChildBodyV1] })
+  readonly children!: CreateChildBodyV1[];
 
   @Validate(NoDuplicateValidator, ['job'])
   @ArrayMinSize(2)
   @ValidateNested({ each: true })
-  @Type(() => CreatePreferredJobBody)
-  @ApiProperty({ type: [CreatePreferredJobBody] })
-  readonly preferredJobs!: CreatePreferredJobBody[];
+  @Type(() => CreatePreferredJobBodyV1)
+  @ApiProperty({ type: [CreatePreferredJobBodyV1] })
+  readonly preferredJobs!: CreatePreferredJobBodyV1[];
 }
