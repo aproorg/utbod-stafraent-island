@@ -107,6 +107,6 @@ jobs:
           commit_message: ${{ env.COMMIT_MSG }}
 
       - name: Wait for islandis to stabilize
-        run: aws ecs wait services-stable --cluster=island-islandis-$ENVIRONMENT --services=islandis-$ENVIRONMENT
+        run: aws ecs wait services-stable --cluster=island-islandis-$ENVIRONMENT --services=islandis-$ENVIRONMENT --region=eu-west-2
       - name: Wait for vmst to stabilize
         run: aws ecs wait services-stable --cluster=island-vmst-$ENVIRONMENT --services=vmst-$ENVIRONMENT
