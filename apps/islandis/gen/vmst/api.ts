@@ -24,188 +24,344 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
 /**
  * 
  * @export
- * @interface ApplicationViewModel
+ * @interface ApplicationViewModelV1
  */
-export interface ApplicationViewModel {
+export interface ApplicationViewModelV1 {
     /**
      * 
      * @type {string}
-     * @memberof ApplicationViewModel
+     * @memberof ApplicationViewModelV1
      */
     id: string;
     /**
      * 
      * @type {string}
-     * @memberof ApplicationViewModel
+     * @memberof ApplicationViewModelV1
      */
     name: string;
     /**
      * 
      * @type {string}
-     * @memberof ApplicationViewModel
+     * @memberof ApplicationViewModelV1
      */
     address: string;
     /**
      * 
      * @type {number}
-     * @memberof ApplicationViewModel
+     * @memberof ApplicationViewModelV1
      */
     postalCode: number;
     /**
      * 
      * @type {string}
-     * @memberof ApplicationViewModel
+     * @memberof ApplicationViewModelV1
      */
     city: string;
     /**
      * 
      * @type {string}
-     * @memberof ApplicationViewModel
+     * @memberof ApplicationViewModelV1
      */
     nationalId: string;
     /**
      * 
-     * @type {Array<ChildViewModel>}
-     * @memberof ApplicationViewModel
+     * @type {Array<ChildViewModelV1>}
+     * @memberof ApplicationViewModelV1
      */
-    children: Array<ChildViewModel>;
+    children: Array<ChildViewModelV1>;
     /**
      * 
-     * @type {Array<PreferredJobViewModel>}
-     * @memberof ApplicationViewModel
+     * @type {Array<PreferredJobViewModelV1>}
+     * @memberof ApplicationViewModelV1
      */
-    preferredJobs: Array<PreferredJobViewModel>;
+    preferredJobs: Array<PreferredJobViewModelV1>;
 }
 /**
  * 
  * @export
- * @interface ChildViewModel
+ * @interface ApplicationViewModelV2
  */
-export interface ChildViewModel {
+export interface ApplicationViewModelV2 {
     /**
      * 
      * @type {string}
-     * @memberof ChildViewModel
+     * @memberof ApplicationViewModelV2
+     */
+    id: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ApplicationViewModelV2
      */
     name: string;
     /**
      * 
      * @type {string}
-     * @memberof ChildViewModel
-     */
-    nationalId: string;
-}
-/**
- * 
- * @export
- * @interface CreateApplicationBody
- */
-export interface CreateApplicationBody {
-    /**
-     * 
-     * @type {string}
-     * @memberof CreateApplicationBody
-     */
-    name: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof CreateApplicationBody
+     * @memberof ApplicationViewModelV2
      */
     address: string;
     /**
      * 
      * @type {number}
-     * @memberof CreateApplicationBody
+     * @memberof ApplicationViewModelV2
      */
     postalCode: number;
     /**
      * 
      * @type {string}
-     * @memberof CreateApplicationBody
-     */
-    city: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof CreateApplicationBody
+     * @memberof ApplicationViewModelV2
      */
     nationalId: string;
     /**
      * 
-     * @type {Array<CreateChildBody>}
-     * @memberof CreateApplicationBody
+     * @type {Array<ChildViewModelV2>}
+     * @memberof ApplicationViewModelV2
      */
-    children: Array<CreateChildBody>;
+    children: Array<ChildViewModelV2>;
     /**
      * 
-     * @type {Array<CreatePreferredJobBody>}
-     * @memberof CreateApplicationBody
+     * @type {Array<PreferredJobViewModelV2>}
+     * @memberof ApplicationViewModelV2
      */
-    preferredJobs: Array<CreatePreferredJobBody>;
+    preferredJobs: Array<PreferredJobViewModelV2>;
 }
 /**
  * 
  * @export
- * @interface CreateChildBody
+ * @interface ChildViewModelV1
  */
-export interface CreateChildBody {
+export interface ChildViewModelV1 {
     /**
      * 
      * @type {string}
-     * @memberof CreateChildBody
+     * @memberof ChildViewModelV1
      */
     name: string;
     /**
      * 
      * @type {string}
-     * @memberof CreateChildBody
+     * @memberof ChildViewModelV1
      */
     nationalId: string;
 }
 /**
  * 
  * @export
- * @interface CreatePreferredJobBody
+ * @interface ChildViewModelV2
  */
-export interface CreatePreferredJobBody {
+export interface ChildViewModelV2 {
     /**
      * 
      * @type {string}
-     * @memberof CreatePreferredJobBody
+     * @memberof ChildViewModelV2
+     */
+    name: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ChildViewModelV2
+     */
+    nationalId: string;
+}
+/**
+ * 
+ * @export
+ * @interface CreateApplicationBodyV1
+ */
+export interface CreateApplicationBodyV1 {
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateApplicationBodyV1
+     */
+    name: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateApplicationBodyV1
+     */
+    address: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof CreateApplicationBodyV1
+     */
+    postalCode: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateApplicationBodyV1
+     */
+    city: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateApplicationBodyV1
+     */
+    nationalId: string;
+    /**
+     * 
+     * @type {Array<CreateChildBodyV1>}
+     * @memberof CreateApplicationBodyV1
+     */
+    children: Array<CreateChildBodyV1>;
+    /**
+     * 
+     * @type {Array<CreatePreferredJobBodyV1>}
+     * @memberof CreateApplicationBodyV1
+     */
+    preferredJobs: Array<CreatePreferredJobBodyV1>;
+}
+/**
+ * 
+ * @export
+ * @interface CreateApplicationBodyV2
+ */
+export interface CreateApplicationBodyV2 {
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateApplicationBodyV2
+     */
+    name: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateApplicationBodyV2
+     */
+    address: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof CreateApplicationBodyV2
+     */
+    postalCode: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateApplicationBodyV2
+     */
+    nationalId: string;
+    /**
+     * 
+     * @type {Array<CreateChildBodyV2>}
+     * @memberof CreateApplicationBodyV2
+     */
+    children: Array<CreateChildBodyV2>;
+    /**
+     * 
+     * @type {Array<CreatePreferredJobBodyV2>}
+     * @memberof CreateApplicationBodyV2
+     */
+    preferredJobs: Array<CreatePreferredJobBodyV2>;
+}
+/**
+ * 
+ * @export
+ * @interface CreateChildBodyV1
+ */
+export interface CreateChildBodyV1 {
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateChildBodyV1
+     */
+    name: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateChildBodyV1
+     */
+    nationalId: string;
+}
+/**
+ * 
+ * @export
+ * @interface CreateChildBodyV2
+ */
+export interface CreateChildBodyV2 {
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateChildBodyV2
+     */
+    name: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateChildBodyV2
+     */
+    nationalId: string;
+}
+/**
+ * 
+ * @export
+ * @interface CreatePreferredJobBodyV1
+ */
+export interface CreatePreferredJobBodyV1 {
+    /**
+     * 
+     * @type {string}
+     * @memberof CreatePreferredJobBodyV1
      */
     job: string;
 }
 /**
  * 
  * @export
- * @interface PreferredJobViewModel
+ * @interface CreatePreferredJobBodyV2
  */
-export interface PreferredJobViewModel {
+export interface CreatePreferredJobBodyV2 {
     /**
      * 
      * @type {string}
-     * @memberof PreferredJobViewModel
+     * @memberof CreatePreferredJobBodyV2
+     */
+    job: string;
+}
+/**
+ * 
+ * @export
+ * @interface PreferredJobViewModelV1
+ */
+export interface PreferredJobViewModelV1 {
+    /**
+     * 
+     * @type {string}
+     * @memberof PreferredJobViewModelV1
+     */
+    job: string;
+}
+/**
+ * 
+ * @export
+ * @interface PreferredJobViewModelV2
+ */
+export interface PreferredJobViewModelV2 {
+    /**
+     * 
+     * @type {string}
+     * @memberof PreferredJobViewModelV2
      */
     job: string;
 }
 
 /**
- * DefaultApi - axios parameter creator
+ * ApplicationsV1Api - axios parameter creator
  * @export
  */
-export const DefaultApiAxiosParamCreator = function (configuration?: Configuration) {
+export const ApplicationsV1ApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * 
-         * @param {CreateApplicationBody} createApplicationBody 
+         * @param {CreateApplicationBodyV1} createApplicationBodyV1 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        applicationControllerCreateApplication: async (createApplicationBody: CreateApplicationBody, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'createApplicationBody' is not null or undefined
-            assertParamExists('applicationControllerCreateApplication', 'createApplicationBody', createApplicationBody)
-            const localVarPath = `/api/applications`;
+        applicationControllerCreateApplication: async (createApplicationBodyV1: CreateApplicationBodyV1, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'createApplicationBodyV1' is not null or undefined
+            assertParamExists('applicationControllerCreateApplication', 'createApplicationBodyV1', createApplicationBodyV1)
+            const localVarPath = `/api/v1/applications`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -224,7 +380,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(createApplicationBody, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(createApplicationBodyV1, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -240,7 +396,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         applicationControllerDeleteApplication: async (id: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('applicationControllerDeleteApplication', 'id', id)
-            const localVarPath = `/api/applications/{id}`
+            const localVarPath = `/api/v1/applications/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -273,7 +429,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         applicationControllerGetApplicationById: async (id: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('applicationControllerGetApplicationById', 'id', id)
-            const localVarPath = `/api/applications/{id}`
+            const localVarPath = `/api/v1/applications/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -304,7 +460,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
          * @throws {RequiredError}
          */
         applicationControllerGetApplications: async (nationalId?: string, options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/applications`;
+            const localVarPath = `/api/v1/applications`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -334,16 +490,16 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * 
          * @param {string} id 
-         * @param {CreateApplicationBody} createApplicationBody 
+         * @param {CreateApplicationBodyV1} createApplicationBodyV1 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        applicationControllerUpdateApplication: async (id: string, createApplicationBody: CreateApplicationBody, options: any = {}): Promise<RequestArgs> => {
+        applicationControllerUpdateApplication: async (id: string, createApplicationBodyV1: CreateApplicationBodyV1, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('applicationControllerUpdateApplication', 'id', id)
-            // verify required parameter 'createApplicationBody' is not null or undefined
-            assertParamExists('applicationControllerUpdateApplication', 'createApplicationBody', createApplicationBody)
-            const localVarPath = `/api/applications/{id}`
+            // verify required parameter 'createApplicationBodyV1' is not null or undefined
+            assertParamExists('applicationControllerUpdateApplication', 'createApplicationBodyV1', createApplicationBodyV1)
+            const localVarPath = `/api/v1/applications/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -363,13 +519,569 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(createApplicationBody, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(createApplicationBodyV1, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
                 options: localVarRequestOptions,
             };
         },
+    }
+};
+
+/**
+ * ApplicationsV1Api - functional programming interface
+ * @export
+ */
+export const ApplicationsV1ApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = ApplicationsV1ApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {CreateApplicationBodyV1} createApplicationBodyV1 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async applicationControllerCreateApplication(createApplicationBodyV1: CreateApplicationBodyV1, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApplicationViewModelV1>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.applicationControllerCreateApplication(createApplicationBodyV1, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async applicationControllerDeleteApplication(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.applicationControllerDeleteApplication(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async applicationControllerGetApplicationById(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApplicationViewModelV1>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.applicationControllerGetApplicationById(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} [nationalId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async applicationControllerGetApplications(nationalId?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApplicationViewModelV1>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.applicationControllerGetApplications(nationalId, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {CreateApplicationBodyV1} createApplicationBodyV1 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async applicationControllerUpdateApplication(id: string, createApplicationBodyV1: CreateApplicationBodyV1, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApplicationViewModelV1>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.applicationControllerUpdateApplication(id, createApplicationBodyV1, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * ApplicationsV1Api - factory interface
+ * @export
+ */
+export const ApplicationsV1ApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = ApplicationsV1ApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {CreateApplicationBodyV1} createApplicationBodyV1 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        applicationControllerCreateApplication(createApplicationBodyV1: CreateApplicationBodyV1, options?: any): AxiosPromise<ApplicationViewModelV1> {
+            return localVarFp.applicationControllerCreateApplication(createApplicationBodyV1, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        applicationControllerDeleteApplication(id: string, options?: any): AxiosPromise<void> {
+            return localVarFp.applicationControllerDeleteApplication(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        applicationControllerGetApplicationById(id: string, options?: any): AxiosPromise<ApplicationViewModelV1> {
+            return localVarFp.applicationControllerGetApplicationById(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} [nationalId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        applicationControllerGetApplications(nationalId?: string, options?: any): AxiosPromise<ApplicationViewModelV1> {
+            return localVarFp.applicationControllerGetApplications(nationalId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {CreateApplicationBodyV1} createApplicationBodyV1 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        applicationControllerUpdateApplication(id: string, createApplicationBodyV1: CreateApplicationBodyV1, options?: any): AxiosPromise<ApplicationViewModelV1> {
+            return localVarFp.applicationControllerUpdateApplication(id, createApplicationBodyV1, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * ApplicationsV1Api - object-oriented interface
+ * @export
+ * @class ApplicationsV1Api
+ * @extends {BaseAPI}
+ */
+export class ApplicationsV1Api extends BaseAPI {
+    /**
+     * 
+     * @param {CreateApplicationBodyV1} createApplicationBodyV1 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ApplicationsV1Api
+     */
+    public applicationControllerCreateApplication(createApplicationBodyV1: CreateApplicationBodyV1, options?: any) {
+        return ApplicationsV1ApiFp(this.configuration).applicationControllerCreateApplication(createApplicationBodyV1, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ApplicationsV1Api
+     */
+    public applicationControllerDeleteApplication(id: string, options?: any) {
+        return ApplicationsV1ApiFp(this.configuration).applicationControllerDeleteApplication(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ApplicationsV1Api
+     */
+    public applicationControllerGetApplicationById(id: string, options?: any) {
+        return ApplicationsV1ApiFp(this.configuration).applicationControllerGetApplicationById(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} [nationalId] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ApplicationsV1Api
+     */
+    public applicationControllerGetApplications(nationalId?: string, options?: any) {
+        return ApplicationsV1ApiFp(this.configuration).applicationControllerGetApplications(nationalId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} id 
+     * @param {CreateApplicationBodyV1} createApplicationBodyV1 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ApplicationsV1Api
+     */
+    public applicationControllerUpdateApplication(id: string, createApplicationBodyV1: CreateApplicationBodyV1, options?: any) {
+        return ApplicationsV1ApiFp(this.configuration).applicationControllerUpdateApplication(id, createApplicationBodyV1, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * ApplicationsV2Api - axios parameter creator
+ * @export
+ */
+export const ApplicationsV2ApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {CreateApplicationBodyV2} createApplicationBodyV2 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        applicationControllerCreateApplication: async (createApplicationBodyV2: CreateApplicationBodyV2, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'createApplicationBodyV2' is not null or undefined
+            assertParamExists('applicationControllerCreateApplication', 'createApplicationBodyV2', createApplicationBodyV2)
+            const localVarPath = `/api/v2/applications`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createApplicationBodyV2, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        applicationControllerDeleteApplication: async (id: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('applicationControllerDeleteApplication', 'id', id)
+            const localVarPath = `/api/v2/applications/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        applicationControllerGetApplicationById: async (id: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('applicationControllerGetApplicationById', 'id', id)
+            const localVarPath = `/api/v2/applications/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} [nationalId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        applicationControllerGetApplications: async (nationalId?: string, options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/v2/applications`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (nationalId !== undefined) {
+                localVarQueryParameter['nationalId'] = nationalId;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {CreateApplicationBodyV2} createApplicationBodyV2 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        applicationControllerUpdateApplication: async (id: string, createApplicationBodyV2: CreateApplicationBodyV2, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('applicationControllerUpdateApplication', 'id', id)
+            // verify required parameter 'createApplicationBodyV2' is not null or undefined
+            assertParamExists('applicationControllerUpdateApplication', 'createApplicationBodyV2', createApplicationBodyV2)
+            const localVarPath = `/api/v2/applications/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createApplicationBodyV2, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * ApplicationsV2Api - functional programming interface
+ * @export
+ */
+export const ApplicationsV2ApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = ApplicationsV2ApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {CreateApplicationBodyV2} createApplicationBodyV2 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async applicationControllerCreateApplication(createApplicationBodyV2: CreateApplicationBodyV2, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApplicationViewModelV2>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.applicationControllerCreateApplication(createApplicationBodyV2, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async applicationControllerDeleteApplication(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.applicationControllerDeleteApplication(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async applicationControllerGetApplicationById(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApplicationViewModelV2>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.applicationControllerGetApplicationById(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} [nationalId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async applicationControllerGetApplications(nationalId?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApplicationViewModelV2>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.applicationControllerGetApplications(nationalId, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {CreateApplicationBodyV2} createApplicationBodyV2 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async applicationControllerUpdateApplication(id: string, createApplicationBodyV2: CreateApplicationBodyV2, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApplicationViewModelV2>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.applicationControllerUpdateApplication(id, createApplicationBodyV2, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * ApplicationsV2Api - factory interface
+ * @export
+ */
+export const ApplicationsV2ApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = ApplicationsV2ApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {CreateApplicationBodyV2} createApplicationBodyV2 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        applicationControllerCreateApplication(createApplicationBodyV2: CreateApplicationBodyV2, options?: any): AxiosPromise<ApplicationViewModelV2> {
+            return localVarFp.applicationControllerCreateApplication(createApplicationBodyV2, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        applicationControllerDeleteApplication(id: string, options?: any): AxiosPromise<void> {
+            return localVarFp.applicationControllerDeleteApplication(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        applicationControllerGetApplicationById(id: string, options?: any): AxiosPromise<ApplicationViewModelV2> {
+            return localVarFp.applicationControllerGetApplicationById(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} [nationalId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        applicationControllerGetApplications(nationalId?: string, options?: any): AxiosPromise<ApplicationViewModelV2> {
+            return localVarFp.applicationControllerGetApplications(nationalId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} id 
+         * @param {CreateApplicationBodyV2} createApplicationBodyV2 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        applicationControllerUpdateApplication(id: string, createApplicationBodyV2: CreateApplicationBodyV2, options?: any): AxiosPromise<ApplicationViewModelV2> {
+            return localVarFp.applicationControllerUpdateApplication(id, createApplicationBodyV2, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * ApplicationsV2Api - object-oriented interface
+ * @export
+ * @class ApplicationsV2Api
+ * @extends {BaseAPI}
+ */
+export class ApplicationsV2Api extends BaseAPI {
+    /**
+     * 
+     * @param {CreateApplicationBodyV2} createApplicationBodyV2 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ApplicationsV2Api
+     */
+    public applicationControllerCreateApplication(createApplicationBodyV2: CreateApplicationBodyV2, options?: any) {
+        return ApplicationsV2ApiFp(this.configuration).applicationControllerCreateApplication(createApplicationBodyV2, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ApplicationsV2Api
+     */
+    public applicationControllerDeleteApplication(id: string, options?: any) {
+        return ApplicationsV2ApiFp(this.configuration).applicationControllerDeleteApplication(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ApplicationsV2Api
+     */
+    public applicationControllerGetApplicationById(id: string, options?: any) {
+        return ApplicationsV2ApiFp(this.configuration).applicationControllerGetApplicationById(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} [nationalId] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ApplicationsV2Api
+     */
+    public applicationControllerGetApplications(nationalId?: string, options?: any) {
+        return ApplicationsV2ApiFp(this.configuration).applicationControllerGetApplications(nationalId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} id 
+     * @param {CreateApplicationBodyV2} createApplicationBodyV2 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ApplicationsV2Api
+     */
+    public applicationControllerUpdateApplication(id: string, createApplicationBodyV2: CreateApplicationBodyV2, options?: any) {
+        return ApplicationsV2ApiFp(this.configuration).applicationControllerUpdateApplication(id, createApplicationBodyV2, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * DefaultApi - axios parameter creator
+ * @export
+ */
+export const DefaultApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
         /**
          * 
          * @param {*} [options] Override http request option.
@@ -411,57 +1123,6 @@ export const DefaultApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @param {CreateApplicationBody} createApplicationBody 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async applicationControllerCreateApplication(createApplicationBody: CreateApplicationBody, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApplicationViewModel>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.applicationControllerCreateApplication(createApplicationBody, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async applicationControllerDeleteApplication(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.applicationControllerDeleteApplication(id, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async applicationControllerGetApplicationById(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApplicationViewModel>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.applicationControllerGetApplicationById(id, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {string} [nationalId] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async applicationControllerGetApplications(nationalId?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApplicationViewModel>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.applicationControllerGetApplications(nationalId, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {CreateApplicationBody} createApplicationBody 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async applicationControllerUpdateApplication(id: string, createApplicationBody: CreateApplicationBody, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApplicationViewModel>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.applicationControllerUpdateApplication(id, createApplicationBody, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -481,52 +1142,6 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
     return {
         /**
          * 
-         * @param {CreateApplicationBody} createApplicationBody 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        applicationControllerCreateApplication(createApplicationBody: CreateApplicationBody, options?: any): AxiosPromise<ApplicationViewModel> {
-            return localVarFp.applicationControllerCreateApplication(createApplicationBody, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        applicationControllerDeleteApplication(id: string, options?: any): AxiosPromise<void> {
-            return localVarFp.applicationControllerDeleteApplication(id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        applicationControllerGetApplicationById(id: string, options?: any): AxiosPromise<ApplicationViewModel> {
-            return localVarFp.applicationControllerGetApplicationById(id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {string} [nationalId] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        applicationControllerGetApplications(nationalId?: string, options?: any): AxiosPromise<ApplicationViewModel> {
-            return localVarFp.applicationControllerGetApplications(nationalId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @param {string} id 
-         * @param {CreateApplicationBody} createApplicationBody 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        applicationControllerUpdateApplication(id: string, createApplicationBody: CreateApplicationBody, options?: any): AxiosPromise<ApplicationViewModel> {
-            return localVarFp.applicationControllerUpdateApplication(id, createApplicationBody, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -543,62 +1158,6 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
  * @extends {BaseAPI}
  */
 export class DefaultApi extends BaseAPI {
-    /**
-     * 
-     * @param {CreateApplicationBody} createApplicationBody 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public applicationControllerCreateApplication(createApplicationBody: CreateApplicationBody, options?: any) {
-        return DefaultApiFp(this.configuration).applicationControllerCreateApplication(createApplicationBody, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {string} id 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public applicationControllerDeleteApplication(id: string, options?: any) {
-        return DefaultApiFp(this.configuration).applicationControllerDeleteApplication(id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {string} id 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public applicationControllerGetApplicationById(id: string, options?: any) {
-        return DefaultApiFp(this.configuration).applicationControllerGetApplicationById(id, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {string} [nationalId] 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public applicationControllerGetApplications(nationalId?: string, options?: any) {
-        return DefaultApiFp(this.configuration).applicationControllerGetApplications(nationalId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @param {string} id 
-     * @param {CreateApplicationBody} createApplicationBody 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof DefaultApi
-     */
-    public applicationControllerUpdateApplication(id: string, createApplicationBody: CreateApplicationBody, options?: any) {
-        return DefaultApiFp(this.configuration).applicationControllerUpdateApplication(id, createApplicationBody, options).then((request) => request(this.axios, this.basePath));
-    }
-
     /**
      * 
      * @param {*} [options] Override http request option.
