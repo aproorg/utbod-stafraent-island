@@ -18,7 +18,7 @@ module "api" {
   service_name = "vmst-${local.env}"
 
   desired_count  = 1
-  host           = data.aws_route53_zone.island_andes_cloud.name
+  host           = "${local.env}.vmst.${data.aws_route53_zone.island_andes_cloud.name}"
   image_tag      = local.image_tag
   env            = local.env
   repository_url = data.terraform_remote_state.ecr.outputs.vmst_repository_url

@@ -17,7 +17,7 @@ module "api" {
   common         = local.common_private
   service_name   = "islandis-${local.env}"
   desired_count  = 1
-  host           = data.aws_route53_zone.island_andes_cloud.name
+  host           = "${local.env}.islandis.${data.aws_route53_zone.island_andes_cloud.name}"
   image_tag      = local.image_tag
   env            = local.env
   repository_url = data.terraform_remote_state.ecr.outputs.island_is_repository_url

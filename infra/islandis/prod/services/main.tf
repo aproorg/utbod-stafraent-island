@@ -1,6 +1,6 @@
 locals {
   env        = "staging"
-  aws_region = "eu-west-1"
+  aws_region = "eu-west-2"
   common_tags = tomap({
     "Owner"         = "DevOps",
     "Business Unit" = "IT",
@@ -8,7 +8,7 @@ locals {
     "terraform"     = "true",
     "state"         = "services"
   })
-  ecr_repositories = ["api"]
+  ecr_repositories = ["vmst"]
   vpc_id           = data.terraform_remote_state.networking.outputs.applications_vpc_id
 }
 
@@ -17,7 +17,7 @@ terraform {
     encrypt = true
     bucket  = "staging-utbod-stafraent-island-terraform-state"
     region  = "eu-west-1"
-    key     = "services/terraform.tfstate"
+    key     = "islandis/services/terraform.tfstate"
   }
 }
 
@@ -39,7 +39,7 @@ data "terraform_remote_state" "ecs" {
   config = {
     region = local.aws_region
     bucket = "${local.env}-utbod-stafraent-island-terraform-state"
-    key    = "ecs/terraform.tfstate"
+    key    = "islandis/ecs/terraform.tfstate"
   }
 }
 
@@ -48,10 +48,21 @@ data "terraform_remote_state" "networking" {
 
   config = {
     region = local.aws_region
-    bucket = "dev-utbod-stafraent-island-terraform-state"
-    key    = "networking/terraform.tfstate"
+    bucket = "${local.env}-utbod-stafraent-island-terraform-state"
+    key    = "islandis/networking/terraform.tfstate"
   }
 }
+
+data "terraform_remote_state" "ecr" {
+  backend = "s3"
+
+  config = {
+    region = local.aws_region
+    bucket = "shared-utbod-stafraent-island-terraform-state"
+    key    = "ecr/terraform.tfstate"
+  }
+}
+
 
 data "aws_route53_zone" "island_andes_cloud" {
   name = "island.andes.cloud"

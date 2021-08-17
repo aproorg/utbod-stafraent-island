@@ -1,5 +1,5 @@
 locals {
-  env        = "staging"
+  env        = "prod"
   aws_region = "eu-west-1"
   common_tags = tomap({
     "Owner"         = "DevOps",
@@ -15,7 +15,7 @@ locals {
 terraform {
   backend "s3" {
     encrypt = true
-    bucket  = "staging-utbod-stafraent-island-terraform-state"
+    bucket  = "prod-utbod-stafraent-island-terraform-state"
     region  = "eu-west-1"
     key     = "services/terraform.tfstate"
   }

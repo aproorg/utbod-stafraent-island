@@ -20,3 +20,8 @@ variable "subnets" {
   description = "The list of subnets that the alb should direct traffic to"
   type        = list(string)
 }
+
+variable "elb_root_account" {
+  type    = string
+  default = "arn:aws:iam::156460612806:root"
+}

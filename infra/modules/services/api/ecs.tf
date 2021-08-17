@@ -9,7 +9,7 @@ module "api" {
   service_container_port = 3333
   liveness               = "/api/liveness"
   ingress = [
-    { host = var.host, path = "/api/*", priority = 3 },
+    { host = var.host, path = "/*", priority = 3 },
   ]
   container_definitions = {
     account_id   = data.aws_caller_identity.current.account_id

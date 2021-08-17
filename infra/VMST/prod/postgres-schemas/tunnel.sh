@@ -2,8 +2,8 @@
 
 INSTANCE_ID=$(
     aws ec2 describe-instances \
-        --filters "Name=tag:Name,Values=Bastion Host staging" \
-        --query "Reservations[0].Instances[0].InstanceId" \
+        --filters "Name=tag:Name,Values=Bastion Host prod" \
+        --query "Reservations[1].Instances[0].InstanceId" \
         --region eu-west-1 \
         --output text
 )

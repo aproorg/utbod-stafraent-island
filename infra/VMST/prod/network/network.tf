@@ -59,7 +59,7 @@ module "peering_data_applications" {
 }
 
 resource "aws_route53_zone" "private" {
-  name = "applications.staging.vmst.internal"
+  name = "applications.prod.vmst.internal"
 
   vpc {
     vpc_id = module.applications.vpc_id

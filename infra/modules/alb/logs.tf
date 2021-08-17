@@ -11,12 +11,12 @@ resource "aws_s3_bucket" "lb_logs" {
 
   force_destroy = true
 }
-
+data "aws_caller_identity" "current" {}
 data "aws_iam_policy_document" "lb_logs" {
   statement {
     principals {
       type        = "AWS"
-      identifiers = ["arn:aws:iam::156460612806:root"]
+      identifiers = [var.elb_root_account]
     }
     actions   = ["s3:PutObject"]
     resources = ["${aws_s3_bucket.lb_logs.arn}/*"]
