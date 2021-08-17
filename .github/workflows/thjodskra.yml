@@ -35,8 +35,8 @@ jobs:
 
       - name: Init
         run: terraform init
-        working-directory: infra/dev/thjodskra
+        working-directory: infra/thjodskra
 
       - name: Apply
         run: terraform apply -auto-approve -target=module.lambda_function
-        working-directory: infra/dev/thjodskra
+        working-directory: infra/thjodskra
