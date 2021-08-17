@@ -38,7 +38,7 @@ paths:
                     type: string
                     example: Nónsstígur 5
                   PostalCode:
-                    type: int
+                    type: integer
                     example: 108
                   City:
                     type: string
