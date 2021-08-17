@@ -21,7 +21,8 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "migrate": "sequelize-cli db:migrate",
-    "migrate:gen": "sequelize-cli migration:generate"
+    "migrate:gen": "sequelize-cli migration:generate",
+    "db:watch": "ts-node scripts/queries.ts"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
@@ -31,6 +32,7 @@
     "@nestjs/swagger": "^5.0.9",
     "class-transformer": "^0.4.0",
     "class-validator": "^0.13.1",
+    "dotenv": "^10.0.0",
     "kennitala": "^1.2.6",
     "pg": "^8.7.1",
     "pg-hstore": "^2.3.4",
@@ -61,7 +63,7 @@
     "supertest": "6.1.3",
     "ts-jest": "^27.0.3",
     "ts-loader": "^9.2.3",
-    "ts-node": "^10.0.0",
+    "ts-node": "^10.2.0",
     "tsconfig-paths": "^3.10.1",
     "typescript": "^4.3.5"
   },
