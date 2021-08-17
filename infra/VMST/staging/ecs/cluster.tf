@@ -26,14 +26,14 @@ module "alb" {
 }
 
 module "wafv2" {
-  source = "git@github.com:andesorg/terraform-modules.git//wafv2?ref=v0.1.1"
+  source = "../../../modules/wafv2"
 
   name                           = "VMST-${local.env}"
   global                         = false
   dryrun                         = false
   log_destinations               = []
-  bot_exclude_rule               = []
-  aws_manage_common_exclude_rule = []
+  bot_exclude_rule               = ["SignalNonBrowserUserAgent", "CategoryHttpLibrary"]
+  aws_manage_common_exclude_rule = ["UserAgent_BadBots_HEADER", "NoUserAgent_HEADER"]
 
   providers = {
     aws = aws
