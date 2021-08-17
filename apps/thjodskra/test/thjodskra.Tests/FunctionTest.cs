@@ -30,7 +30,7 @@ namespace thjodskra.Tests
             var response = await function.FunctionHandler(request, context);
 
             Assert.Equal(200, response.StatusCode);
-            Assert.Equal("{\"SSN\":\"1234567890\",\"Name\":null,\"Address\":null,\"PostalCode\":108,\"Email\":null,\"Phone\":null,\"Children\":[],\"Spouse\":null}", response.Body);
+            Assert.Equal("{\"SSN\":\"1234567890\",\"Name\":null,\"Address\":null,\"PostalCode\":108,\"City\":\"Reykjavík\",\"Email\":null,\"Phone\":null,\"Children\":[],\"Spouse\":null}", response.Body);
         }
         [Fact]
         public async Task TestBadRequest()
