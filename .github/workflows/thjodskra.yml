@@ -1,4 +1,4 @@
-name: Build and deploy pipeline
+name: Build and deploy Thjodskra API
 
 on:
   push:
