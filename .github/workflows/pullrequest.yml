@@ -83,3 +83,30 @@ jobs:
       - name: Perform format check
         run: terraform fmt -check -diff -recursive .
         working-directory: infra
+
+  thjodskra:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup dotnet requirements
+        run: |
+          dotnet tool install -g Amazon.Lambda.Tools
+          dotnet tool install -g dotnet-format
+
+      - name: Lint code
+        run: dotnet format --check
+        working-directory: apps/thjodskra/src/thjodskra
+
+      - name: Lint tests
+        run: dotnet format --check
+        working-directory: apps/thjodskra/test/thjodskra.Tests
+
+      - name: Run tests
+        run: dotnet test
+        working-directory: apps/thjodskra/test/thjodskra.Tests
+
+      - name: Build lambda
+        run: ./build-lambda.sh
+        working-directory: apps/thjodskra
