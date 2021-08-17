@@ -34,6 +34,11 @@ data "aws_iam_policy_document" "deployer" {
     actions   = ["ecr:GetAuthorizationToken"]
     resources = ["*"]
   }
+
+  statement {
+    actions   = ["s3:*Object*"]
+    resources = ["arn:aws:s3:::dev-utbod-stafraent-island-terraform-state/thjodskra/*"]
+  }
 }
 
 resource "aws_iam_policy" "deploy" {
