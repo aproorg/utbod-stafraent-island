@@ -9,6 +9,7 @@ import { LivenessModule } from './liveness';
     GraphQLModule.forRoot({
       autoSchemaFile: true,
       playground: true,
+      introspection: true,
     }),
     LivenessModule,
   ],
