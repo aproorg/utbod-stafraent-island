@@ -1,6 +1,7 @@
 ﻿#!/usr/bin/env bash
-ls -lL /usr/bin/env
 set -euxo pipefail
+
+ls -lL /usr/bin/env
 
 cd src/thjodskra
 dotnet restore
