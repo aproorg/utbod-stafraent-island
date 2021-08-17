@@ -36,8 +36,8 @@ data "aws_iam_policy_document" "deployer" {
   }
 
   statement {
-    actions   = ["s3:*Object*"]
-    resources = ["arn:aws:s3:::dev-utbod-stafraent-island-terraform-state/thjodskra/*"]
+    actions   = ["lambda:UpdateFunctionCode", "lambda:GetFunction"]
+    resources = ["arn:aws:lambda:eu-west-1:596808618898:function:thjodskra-api-lambda"]
   }
 }
 
