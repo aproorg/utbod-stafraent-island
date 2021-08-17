@@ -33,14 +33,14 @@ describe('UnemploymentService', () => {
 
     const query = gql`
       {
-        recipe(id: "0") {
+        getApplicationById(id: "0") {
           id
         }
       }
     `;
     expect(await client.request<BenefitApplication>(query)).toStrictEqual({
-      recipe: {
-        id: '1',
+      getApplicationById: {
+        id: '13423432',
       },
     });
   });
