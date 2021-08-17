@@ -33,7 +33,10 @@ namespace thjodskra
             var config = new DynamoDBContextConfig { Conversion = DynamoDBEntryConversion.V2 };
             this.DDBContext = new DynamoDBContext(new AmazonDynamoDBClient(), config);
         }
-
+        public Function(IDynamoDBContext context)
+        {
+            this.DDBContext = context;
+        }
 
         public async Task<APIGatewayProxyResponse> FunctionHandler(APIGatewayProxyRequest request, ILambdaContext context)
         {

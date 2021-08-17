@@ -14,7 +14,7 @@ namespace thjodskra
         public string Address { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
-        public List<string> Children { get; set; }
+        public List<string> Children { get; set; } = new List<string>();
         public string Spouse { get; set; }
     }
 }

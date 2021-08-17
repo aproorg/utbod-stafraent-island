@@ -24,7 +24,12 @@ jobs:
           aws-region: eu-west-1
 
       - name: Setup dotnet requirements
-        run: dotnet tool install -g Amazon.Lambda.Tools
+        run: |
+          dotnet tool install -g Amazon.Lambda.Tools
+          dotnet tool install -g dotnet-format
+
+      - name: Lint
+        run: dotnet format --check
 
       - name: Build lambda
         run: ./build-lambda.sh

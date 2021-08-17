@@ -1,12 +1,16 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
 using Xunit;
 using Amazon.Lambda.APIGatewayEvents;
-using Amazon.Lambda.Core;
 using Amazon.Lambda.TestUtilities;
+using Amazon.DynamoDBv2.DataModel;
+
+using Moq;
+using Newtonsoft.Json;
 
 using thjodskra;
 
@@ -15,19 +19,44 @@ namespace thjodskra.Tests
     public class FunctionTest
     {
         [Fact]
-        public async void TestToUpperFunction()
+        public async Task TestGetCitizen()
         {
-
-            // Invoke the lambda function and confirm the string was upper cased.
-            var function = new Function();
+            var client = new Mock<IDynamoDBContext>();
+            client.Setup(c => c.LoadAsync<Citizen>(It.IsAny<string>(), default).Result).Returns(new Citizen{SSN = "1234567890"});
+            var function = new Function(client.Object);
             var context = new TestLambdaContext();
-            var request = new APIGatewayProxyRequest
-            {
-                // PathParameters = new Dictionary<string, string>{"SSN" = "123456789"},
-            };
+            var requestStr = File.ReadAllText("./SampleRequests/GetCitizen.json");
+            var request = JsonConvert.DeserializeObject<APIGatewayProxyRequest>(requestStr);
             var response = await function.FunctionHandler(request, context);
 
-            Assert.Equal(response.StatusCode, 200);
+            Assert.Equal(response.StatusCode, 200);            
+            Assert.Equal("{\"SSN\":\"1234567890\",\"Name\":null,\"Address\":null,\"Email\":null,\"Phone\":null,\"Children\":[],\"Spouse\":null}", response.Body);
+        }
+        [Fact]
+        public async Task TestBadRequest()
+        {
+            var client = new Mock<IDynamoDBContext>();
+            client.Setup(c => c.LoadAsync<Citizen>(It.IsAny<string>(), default).Result).Returns(new Citizen{SSN = "1234567890"});
+            var function = new Function(client.Object);
+            var context = new TestLambdaContext();
+            var requestStr = File.ReadAllText("./SampleRequests/BadRequest.json");
+            var request = JsonConvert.DeserializeObject<APIGatewayProxyRequest>(requestStr);
+            var response = await function.FunctionHandler(request, context);
+
+            Assert.Equal(response.StatusCode, 400);            
+        }
+        [Fact]
+        public async Task TestCitizenNotFound()
+        {
+            var client = new Mock<IDynamoDBContext>();
+            client.Setup(c => c.LoadAsync<Citizen>(It.IsAny<string>(), default).Result);
+            var function = new Function(client.Object);
+            var context = new TestLambdaContext();
+            var requestStr = File.ReadAllText("./SampleRequests/GetCitizen.json");
+            var request = JsonConvert.DeserializeObject<APIGatewayProxyRequest>(requestStr);
+            var response = await function.FunctionHandler(request, context);
+
+            Assert.Equal(response.StatusCode, 404);            
         }
     }
 }
