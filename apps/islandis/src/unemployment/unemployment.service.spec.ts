@@ -2,7 +2,7 @@ import { INestApplication } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { Test, TestingModule } from '@nestjs/testing';
 import { GraphQLClient, gql } from 'graphql-request';
-import { BenefitApplication } from './models/model';
+import { UnemployemntApplicationOutput } from './models/model';
 import {
   NationalRegistryAPIService,
   VMSTApiService,
@@ -87,7 +87,7 @@ describe('UnemploymentService', () => {
       mutation {
         submitApplication(
           application: {
-            socialId: "0101302989"
+            nationalId: "0101302989"
             children: []
             preferredJobs: [{ name: "developer" }, { name: "manager" }]
             startDate: "2021-10-01"
@@ -110,7 +110,7 @@ describe('UnemploymentService', () => {
       }
     `;
     expect(
-      await client.request<BenefitApplication>(retrieveApplication),
+      await client.request<UnemployemntApplicationOutput>(retrieveApplication),
     ).toStrictEqual({
       getApplicationById: {
         id: id,
