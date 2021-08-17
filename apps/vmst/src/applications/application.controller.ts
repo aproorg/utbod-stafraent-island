@@ -13,7 +13,7 @@ import { ApiOkResponse, ApiCreatedResponse } from '@nestjs/swagger';
 
 import { ApplicationService } from './application.service';
 import { Application } from './application.model';
-import { GetApplicationsQuery, CreateApplicationBody } from './application.dto';
+import { GetApplicationsQuery, CreateApplicationBody } from './dto';
 
 @Controller('/api/applications')
 export class ApplicationController {

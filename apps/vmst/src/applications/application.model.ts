@@ -1,14 +1,79 @@
 import {
   Column,
+  CreatedAt,
+  DataType,
+  ForeignKey,
+  HasMany,
   Model,
   Table,
-  CreatedAt,
   UpdatedAt,
-  DataType,
 } from 'sequelize-typescript';
 import { ApiProperty } from '@nestjs/swagger';
 
-import { ApplicantCircumstances } from './application.enum';
+@Table
+export class PreferredJob extends Model {
+  @ForeignKey(() => Application)
+  @Column({
+    type: DataType.UUID,
+    primaryKey: true,
+    allowNull: false,
+    defaultValue: DataType.UUIDV4,
+  })
+  @ApiProperty()
+  applicationId: string;
+
+  @Column({
+    type: DataType.STRING,
+    primaryKey: true,
+    allowNull: false,
+  })
+  @ApiProperty()
+  job: string;
+
+  @CreatedAt
+  @ApiProperty()
+  readonly createdAt: Date;
+
+  @UpdatedAt
+  @ApiProperty()
+  readonly updatedAt: Date;
+}
+
+@Table({ tableName: 'children' })
+export class Child extends Model {
+  @ForeignKey(() => Application)
+  @Column({
+    type: DataType.UUID,
+    primaryKey: true,
+    allowNull: false,
+    defaultValue: DataType.UUIDV4,
+  })
+  @ApiProperty()
+  applicationId: string;
+
+  @Column({
+    type: DataType.STRING,
+    primaryKey: true,
+    allowNull: false,
+  })
+  @ApiProperty()
+  nationalId: string;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
+  @ApiProperty()
+  name: string;
+
+  @CreatedAt
+  @ApiProperty()
+  readonly createdAt: Date;
+
+  @UpdatedAt
+  @ApiProperty()
+  readonly updatedAt: Date;
+}
 
 @Table
 export class Application extends Model {
@@ -26,99 +91,43 @@ export class Application extends Model {
     allowNull: false,
   })
   @ApiProperty()
+  name: string;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
+  @ApiProperty()
+  address: string;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
+  @ApiProperty()
+  postalCode: string;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
+  @ApiProperty()
+  city: string;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
+  @ApiProperty()
   nationalId: string;
 
-  @Column({
-    type: DataType.ENUM,
-    values: Object.values(ApplicantCircumstances),
-    allowNull: false,
-  })
-  @ApiProperty({ enum: Object.values(ApplicantCircumstances) })
-  applicantsCircumstances: string;
+  @HasMany(() => Child)
+  @ApiProperty({ type: [Child] })
+  children: Child[];
 
-  @Column({
-    type: DataType.DECIMAL,
-    allowNull: false,
-  })
-  @ApiProperty()
-  personalDiscountRatio: number;
-
-  @Column({
-    type: DataType.INTEGER,
-    allowNull: false,
-  })
-  @ApiProperty()
-  personalDiscount: number;
-
-  @Column({
-    type: DataType.INTEGER,
-    allowNull: false,
-  })
-  @ApiProperty()
-  income: number;
-
-  @Column({
-    type: DataType.INTEGER,
-    allowNull: false,
-  })
-  @ApiProperty()
-  retirementOrDisabilityPaymentFromTryggingarstofnun: number;
-
-  @Column({
-    type: DataType.INTEGER,
-    allowNull: false,
-  })
-  @ApiProperty()
-  retirementAndDisabilityPaymentFromPensionFunds: number;
-
-  @Column({
-    type: DataType.DECIMAL,
-    allowNull: false,
-  })
-  @ApiProperty()
-  incomeTaxStep1: number;
-
-  @Column({
-    type: DataType.DECIMAL,
-    allowNull: false,
-  })
-  @ApiProperty()
-  incomeTaxStep2: number;
-
-  @Column({
-    type: DataType.DECIMAL,
-    allowNull: false,
-  })
-  @ApiProperty()
-  unionRatio: number;
-
-  @Column({
-    type: DataType.DECIMAL,
-    allowNull: false,
-  })
-  @ApiProperty()
-  workingRatio: number;
-
-  @Column({
-    type: DataType.DECIMAL,
-    allowNull: false,
-  })
-  @ApiProperty()
-  pensionFundRatio: number;
-
-  @Column({
-    type: DataType.DECIMAL,
-    allowNull: false,
-  })
-  @ApiProperty()
-  additionalPensionFundRatio: number;
-
-  @Column({
-    type: DataType.BOOLEAN,
-    allowNull: false,
-  })
-  @ApiProperty()
-  parentalLeave: boolean;
+  @HasMany(() => PreferredJob)
+  @ApiProperty({ type: [PreferredJob] })
+  preferredJobs: PreferredJob[];
 
   @CreatedAt
   @ApiProperty()
