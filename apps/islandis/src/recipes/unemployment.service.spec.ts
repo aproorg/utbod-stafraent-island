@@ -31,14 +31,14 @@ describe('UnemploymentService', () => {
     const endpoint = await app.getUrl();
     const client = new GraphQLClient(`${endpoint}/graphql`, {});
 
-    const mutation = gql`
+    const query = gql`
       {
         recipe(id: "0") {
           id
         }
       }
     `;
-    expect(await client.request<BenefitApplication>(mutation)).toStrictEqual({
+    expect(await client.request<BenefitApplication>(query)).toStrictEqual({
       recipe: {
         id: '1',
       },
