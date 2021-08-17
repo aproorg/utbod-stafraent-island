@@ -27,7 +27,7 @@ describe('UnemploymentService', () => {
     await app.close();
   });
 
-  it('should return some object with same ID', async () => {
+  xit('should return some object with same ID', async () => {
     const endpoint = await app.getUrl();
     const client = new GraphQLClient(`${endpoint}/graphql`, {});
     const createApplication = gql`
