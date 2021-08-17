@@ -14,6 +14,7 @@
     "schema:gen:th": "cp ${PWD}/../../infra/thjodskra/swagger/api.yaml ${PWD} ; docker run --rm -v \"${PWD}:/local\" openapitools/openapi-generator-cli generate -i /local/api.yaml -g typescript-axios -o /local/gen/thjodskra ; rm api.yaml",
     "schema:gen": "yarn run schema:gen:vmst && yarn run schema:gen:th",
     "migrate": "echo No migrations for this project",
+    "seed": "echo No seeds for this project",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
