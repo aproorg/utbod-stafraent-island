@@ -1,0 +1,23 @@
+openapi: "3.0.1"
+info:
+  version: 0.0.1
+  title: Thjodskra API
+  description: Thjodskra API
+paths:
+  /user:
+    get:
+      operationId: getUser
+      responses:
+        default:
+          description: "Default response for GET /user"
+      x-amazon-apigateway-integration:
+        $ref: '#/components/x-amazon-apigateway-integrations/user'
+
+components:
+  x-amazon-apigateway-integrations:
+    debug:
+      type: AWS_PROXY
+      httpMethod: GET
+      uri: "${example_function_arn}"
+      payloadFormatVersion: "2.0"
+      connectionType: INTERNET
