@@ -1,21 +1,21 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 
-import { Application, Child, PreferredJob } from './models';
-import { CreateApplicationBody } from './dto';
+import { ApplicationV2, ChildV2, PreferredJobV2 } from './models';
+import { CreateApplicationBodyV2 } from './dto';
 
 @Injectable()
 export class ApplicationService {
   constructor(
-    @InjectModel(Application)
-    private applicationModel: typeof Application,
-    @InjectModel(Child)
-    private childModel: typeof Child,
-    @InjectModel(PreferredJob)
-    private preferredJobModel: typeof PreferredJob,
+    @InjectModel(ApplicationV2)
+    private applicationModel: typeof ApplicationV2,
+    @InjectModel(ChildV2)
+    private childModel: typeof ChildV2,
+    @InjectModel(PreferredJobV2)
+    private preferredJobModel: typeof PreferredJobV2,
   ) {}
 
-  findAll(nationalId?: string): Promise<Application[]> {
+  findAll(nationalId?: string): Promise<ApplicationV2[]> {
     const where = {};
     if (nationalId) {
       where['nationalId'] = nationalId;
@@ -26,23 +26,24 @@ export class ApplicationService {
     });
   }
 
-  findOneById(id: string): Promise<Application> {
+  findOneById(id: string): Promise<ApplicationV2> {
     return this.applicationModel.findOne({
       where: { id },
       include: [this.childModel, this.preferredJobModel],
     });
   }
 
-  create(body: CreateApplicationBody): Promise<Application> {
+  create(body: CreateApplicationBodyV2): Promise<ApplicationV2> {
+    console.log(body);
     return this.applicationModel.create(body, {
       include: [this.childModel, this.preferredJobModel],
     });
   }
 
   async update(
-    application: Application,
-    body: CreateApplicationBody,
-  ): Promise<Application> {
+    application: ApplicationV2,
+    body: CreateApplicationBodyV2,
+  ): Promise<ApplicationV2> {
     await Promise.all(
       application.preferredJobs.map((preferredJob) => preferredJob.destroy()),
     );
@@ -64,7 +65,7 @@ export class ApplicationService {
     return application;
   }
 
-  async delete(application: Application): Promise<Application> {
+  async delete(application: ApplicationV2): Promise<ApplicationV2> {
     await application.destroy();
     return application;
   }

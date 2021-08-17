@@ -3,7 +3,7 @@ import { getModelToken } from '@nestjs/sequelize';
 
 import { ApplicationController } from './application.controller';
 import { ApplicationService } from './application.service';
-import { Application } from './models';
+import { ApplicationV2 } from './models';
 
 describe('ApplicationController', () => {
   let applicationController: ApplicationController;
@@ -22,7 +22,7 @@ describe('ApplicationController', () => {
           })),
         },
         {
-          provide: getModelToken(Application),
+          provide: getModelToken(ApplicationV2),
           useClass: jest.fn(() => ({})),
         },
       ],
@@ -41,7 +41,6 @@ describe('ApplicationController', () => {
       name: 'Jóna Jónsdóttir',
       address: 'Andesgrund',
       postalCode: 0,
-      city: 'Reykjavík',
       nationalId: '0101938189',
       children: [
         {

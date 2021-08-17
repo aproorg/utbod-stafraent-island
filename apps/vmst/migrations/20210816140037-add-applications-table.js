@@ -40,9 +40,11 @@ module.exports = {
 
   down: (queryInterface) => {
     return queryInterface.sequelize.query(`
-      DROP TABLE preferred_jobs;
-      DROP TABLE children;
-      DROP TABLE applications;
+      BEGIN;
+        DROP TABLE preferred_jobs;
+        DROP TABLE children;
+        DROP TABLE applications;
+      COMMIT;
     `);
   },
 };

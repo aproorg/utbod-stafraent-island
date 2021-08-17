@@ -10,7 +10,7 @@ import { ApiProperty } from '@nestjs/swagger';
 
 import { NationalIdValidator } from './validators.dto';
 
-class ChildViewModel {
+class ChildViewModelV1 {
   @Expose()
   @IsString()
   @ApiProperty()
@@ -22,14 +22,14 @@ class ChildViewModel {
   readonly nationalId: string;
 }
 
-class PreferredJobViewModel {
+class PreferredJobViewModelV1 {
   @Expose()
   @IsString()
   @ApiProperty()
   readonly job: string;
 }
 
-export class ApplicationViewModel {
+export class ApplicationViewModelV1 {
   @Expose()
   @IsString()
   @ApiProperty()
@@ -62,14 +62,14 @@ export class ApplicationViewModel {
 
   @Expose()
   @ValidateNested({ each: true })
-  @Type(() => ChildViewModel)
-  @ApiProperty({ type: [ChildViewModel] })
-  readonly children!: ChildViewModel[];
+  @Type(() => ChildViewModelV1)
+  @ApiProperty({ type: [ChildViewModelV1] })
+  readonly children!: ChildViewModelV1[];
 
   @Expose()
   @ArrayMinSize(2)
   @ValidateNested({ each: true })
-  @Type(() => PreferredJobViewModel)
-  @ApiProperty({ type: [PreferredJobViewModel] })
-  readonly preferredJobs!: PreferredJobViewModel[];
+  @Type(() => PreferredJobViewModelV1)
+  @ApiProperty({ type: [PreferredJobViewModelV1] })
+  readonly preferredJobs!: PreferredJobViewModelV1[];
 }

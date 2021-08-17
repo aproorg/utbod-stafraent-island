@@ -3,11 +3,13 @@ import { SequelizeModule } from '@nestjs/sequelize';
 
 import { ApplicationController } from './application.controller';
 import { ApplicationService } from './application.service';
-import { Application, Child, PreferredJob } from './models';
+import { ApplicationV1, ChildV1, PreferredJobV1 } from './models';
 
 @Module({
-  imports: [SequelizeModule.forFeature([Application, Child, PreferredJob])],
+  imports: [
+    SequelizeModule.forFeature([ApplicationV1, ChildV1, PreferredJobV1]),
+  ],
   controllers: [ApplicationController],
   providers: [ApplicationService],
 })
-export class ApplicationModule {}
+export class ApplicationModuleV1 {}
