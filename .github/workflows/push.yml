@@ -96,3 +96,8 @@ jobs:
       - name: Update function code
         run: aws lambda update-function-code --function-name=thjodskra-api-lambda --zip-file=fileb://src/thjodskra/bin/Release/netcoreapp3.1/thjodskra.zip
         working-directory: apps/thjodskra
+
+      - name: Upload swagger
+        run: |
+          aws s3 sync swagger s3://thjodskra-prod-swagger-origin
+        working-directory: infra/thjodskra

@@ -31,6 +31,14 @@ provider "aws" {
   }
 }
 
+provider "aws" {
+  alias  = "us"
+  region = "us-east-1"
+  default_tags {
+    tags = local.common_tags
+  }
+}
+
 data "aws_route53_zone" "island_andes_cloud" {
   name = "island.andes.cloud"
 }
