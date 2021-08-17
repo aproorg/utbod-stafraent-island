@@ -21,6 +21,7 @@ export class Post {
     UnemploymentDomainModule,
     GraphQLModule.forRoot({
       autoSchemaFile: true,
+      playground: true,
     }),
     LivenessModule,
   ],
