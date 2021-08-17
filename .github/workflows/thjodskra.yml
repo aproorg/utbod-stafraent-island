@@ -38,5 +38,5 @@ jobs:
         working-directory: infra/thjodskra
 
       - name: Apply
-        run: terraform apply -auto-approve -target=module.lambda_function
+        run: terraform apply -auto-approve -target=module.lambda_function.aws_lambda_function.this -target=module.lambda_function.aws_lambda_permission.current_version_triggers
         working-directory: infra/thjodskra
