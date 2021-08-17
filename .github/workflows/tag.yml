@@ -2,6 +2,8 @@ name: Service release pipeline
 
 on:
   push:
+    branches:
+      - test-staging-deploy
     tags:
       - v*.*
   workflow_dispatch: {}
@@ -9,7 +11,7 @@ on:
 jobs:
   check-image-exists:
 
-    name: Check that image ${{ matrix.service }}:${{ github.sha }} exists
+    name: Check that image ${{ matrix.service }}:83d1a34fff3154afb27d559763f26b82c427f56e exists
     runs-on: ubuntu-20.04
     strategy:
       matrix:
@@ -25,12 +27,12 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-west-1
       - name: Check if image exists
-        run: aws ecr describe-images --repository-name=${{ matrix.service }} --image-ids=imageTag=${{ github.sha }}
+        run: aws ecr describe-images --repository-name=${{ matrix.service }} --image-ids=imageTag=83d1a34fff3154afb27d559763f26b82c427f56e
 
   deploy-staging:
-    name: Deploy ${{ github.sha }} to staging
+    name: Deploy 83d1a34fff3154afb27d559763f26b82c427f56e to staging
     runs-on: ubuntu-20.04
-    needs: check-image-exists
+    # needs: check-image-exists
     environment: staging
     env:
       ENVIRONMENT: staging
@@ -53,7 +55,7 @@ jobs:
           echo $HOME/.tfenv/bin >> $GITHUB_PATH
       - name: Deploy
         run: |
-          COMMIT_MSG=$(./infra/set-image-tag.sh -e $ENVIRONMENT -t ${{ github.sha }} --deploy --sub ${{ matrix.service }})
+          COMMIT_MSG=$(./infra/set-image-tag.sh -e $ENVIRONMENT -t 83d1a34fff3154afb27d559763f26b82c427f56e --deploy --sub ${{ matrix.service }})
           echo "COMMIT_MSG=$COMMIT_MSG" >> $GITHUB_ENV
       - name: Commit
         uses: stefanzweifel/git-auto-commit-action@v4
@@ -63,7 +65,7 @@ jobs:
         run: aws ecs wait services-stable --cluster=island-${{ matrix.service }}-$ENVIRONMENT --services=${{ matrix.service }}-$ENVIRONMENT
 
   deploy-prod:
-    name: Deploy ${{ github.sha }} to prod
+    name: Deploy 83d1a34fff3154afb27d559763f26b82c427f56e to prod
     runs-on: ubuntu-20.04
     needs: deploy-staging
     environment: prod
@@ -95,7 +97,7 @@ jobs:
           echo $HOME/.tfenv/bin >> $GITHUB_PATH
       - name: Deploy
         run: |
-          COMMIT_MSG=$(./infra/set-image-tag.sh -e $ENVIRONMENT -t ${{ github.sha }} --deploy --sub ${{ matrix.service }})
+          COMMIT_MSG=$(./infra/set-image-tag.sh -e $ENVIRONMENT -t 83d1a34fff3154afb27d559763f26b82c427f56e --deploy --sub ${{ matrix.service }})
           echo "COMMIT_MSG=$COMMIT_MSG" >> $GITHUB_ENV
       - name: Commit
         uses: stefanzweifel/git-auto-commit-action@v4
