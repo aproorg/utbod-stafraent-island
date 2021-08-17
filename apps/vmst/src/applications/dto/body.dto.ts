@@ -8,7 +8,7 @@ import {
 import { Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 
-import { NationalIdValidator } from './validators.dto';
+import { NationalIdValidator, NoDuplicateValidator } from './validators.dto';
 
 class CreateChildBody {
   @IsString()
@@ -47,11 +47,13 @@ export class CreateApplicationBody {
   @ApiProperty()
   readonly nationalId: string;
 
+  @Validate(NoDuplicateValidator, ['nationalId'])
   @ValidateNested({ each: true })
   @Type(() => CreateChildBody)
   @ApiProperty({ type: [CreateChildBody] })
   readonly children!: CreateChildBody[];
 
+  @Validate(NoDuplicateValidator, ['job'])
   @ArrayMinSize(2)
   @ValidateNested({ each: true })
   @Type(() => CreatePreferredJobBody)
