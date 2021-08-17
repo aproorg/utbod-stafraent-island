@@ -38,85 +38,43 @@ export interface Application {
      * @type {string}
      * @memberof Application
      */
-    nationalId: string;
+    name: string;
     /**
      * 
      * @type {string}
      * @memberof Application
      */
-    applicantsCircumstances: ApplicationApplicantsCircumstancesEnum;
+    address: string;
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof Application
      */
-    personalDiscountRatio: number;
+    postalCode: string;
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof Application
      */
-    personalDiscount: number;
+    city: string;
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof Application
      */
-    income: number;
+    nationalId: string;
     /**
      * 
-     * @type {number}
+     * @type {Array<Child>}
      * @memberof Application
      */
-    retirementOrDisabilityPaymentFromTryggingarstofnun: number;
+    children: Array<Child>;
     /**
      * 
-     * @type {number}
+     * @type {Array<PreferredJob>}
      * @memberof Application
      */
-    retirementAndDisabilityPaymentFromPensionFunds: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof Application
-     */
-    incomeTaxStep1: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof Application
-     */
-    incomeTaxStep2: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof Application
-     */
-    unionRatio: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof Application
-     */
-    workingRatio: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof Application
-     */
-    pensionFundRatio: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof Application
-     */
-    additionalPensionFundRatio: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof Application
-     */
-    parentalLeave: boolean;
+    preferredJobs: Array<PreferredJob>;
     /**
      * 
      * @type {string}
@@ -130,16 +88,43 @@ export interface Application {
      */
     updatedAt: string;
 }
-
 /**
-    * @export
-    * @enum {string}
-    */
-export enum ApplicationApplicantsCircumstancesEnum {
-    Sjlfst = 'Sjálfstæð',
-    Launegi = 'Launþegi'
+ * 
+ * @export
+ * @interface Child
+ */
+export interface Child {
+    /**
+     * 
+     * @type {string}
+     * @memberof Child
+     */
+    applicationId: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Child
+     */
+    nationalId: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Child
+     */
+    name: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Child
+     */
+    createdAt: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Child
+     */
+    updatedAt: string;
 }
-
 /**
  * 
  * @export
@@ -151,96 +136,107 @@ export interface CreateApplicationBody {
      * @type {string}
      * @memberof CreateApplicationBody
      */
-    nationalId: string;
+    name: string;
     /**
      * 
      * @type {string}
      * @memberof CreateApplicationBody
      */
-    applicantsCircumstances: CreateApplicationBodyApplicantsCircumstancesEnum;
+    address: string;
     /**
      * 
      * @type {number}
      * @memberof CreateApplicationBody
      */
-    personalDiscountRatio: number;
+    postalCode: number;
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof CreateApplicationBody
      */
-    personalDiscount: number;
+    city: string;
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof CreateApplicationBody
      */
-    income: number;
+    nationalId: string;
     /**
      * 
-     * @type {number}
+     * @type {Array<CreateChildBody>}
      * @memberof CreateApplicationBody
      */
-    retirementOrDisabilityPaymentFromTryggingarstofnun: number;
+    children: Array<CreateChildBody>;
     /**
      * 
-     * @type {number}
+     * @type {Array<CreatePreferredJobBody>}
      * @memberof CreateApplicationBody
      */
-    retirementAndDisabilityPaymentFromPensionFunds: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof CreateApplicationBody
-     */
-    incomeTaxStep1: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof CreateApplicationBody
-     */
-    incomeTaxStep2: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof CreateApplicationBody
-     */
-    unionRatio: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof CreateApplicationBody
-     */
-    workingRatio: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof CreateApplicationBody
-     */
-    pensionFundRatio: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof CreateApplicationBody
-     */
-    additionalPensionFundRatio: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof CreateApplicationBody
-     */
-    parentalLeave: boolean;
+    preferredJobs: Array<CreatePreferredJobBody>;
 }
-
 /**
-    * @export
-    * @enum {string}
-    */
-export enum CreateApplicationBodyApplicantsCircumstancesEnum {
-    Sjlfst = 'Sjálfstæð',
-    Launegi = 'Launþegi'
+ * 
+ * @export
+ * @interface CreateChildBody
+ */
+export interface CreateChildBody {
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateChildBody
+     */
+    name: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateChildBody
+     */
+    nationalId: string;
 }
-
+/**
+ * 
+ * @export
+ * @interface CreatePreferredJobBody
+ */
+export interface CreatePreferredJobBody {
+    /**
+     * 
+     * @type {string}
+     * @memberof CreatePreferredJobBody
+     */
+    job: string;
+}
+/**
+ * 
+ * @export
+ * @interface PreferredJob
+ */
+export interface PreferredJob {
+    /**
+     * 
+     * @type {string}
+     * @memberof PreferredJob
+     */
+    applicationId: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof PreferredJob
+     */
+    job: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof PreferredJob
+     */
+    createdAt: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof PreferredJob
+     */
+    updatedAt: string;
+}
 
 /**
  * DefaultApi - axios parameter creator
