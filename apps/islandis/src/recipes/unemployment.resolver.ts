@@ -1,20 +1,10 @@
-import { Logger, NotFoundException } from '@nestjs/common';
+import { Inject, Logger, NotFoundException } from '@nestjs/common';
 import { Args, InputType, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { BenefitApplication } from './models/model';
 import { UnemploymentApplicationInput } from './models/model';
 import { DefaultApi as VMSTApi } from '../../gen/vmst';
 import { DefaultApi as NationalRegistryAPI } from '../../gen/thjodskra';
-
-const settings =
-  process.env.NODE_ENV === 'production'
-    ? {
-        VMST_API_BASE: process.env.VMST_API_BASE,
-        NATIONAL_REGISTRY_API_BASE: 'https://thjodskra.island.andes.cloud',
-      }
-    : {
-        VMST_API_BASE: 'http://localhost:3333',
-        NATIONAL_REGISTRY_API_BASE: 'https://thjodskra.island.andes.cloud',
-      };
+import { NationalRegistryAPIService, VMSTApiService } from './VMSTApiService';
 
 @InputType()
 export class CreateApplicationInput {}
@@ -22,11 +12,10 @@ export class CreateApplicationInput {}
 @Resolver((of) => BenefitApplication)
 export class UnemploymentResolver {
   private readonly logger = new Logger(UnemploymentResolver.name);
-  private readonly vmstApi: VMSTApi = new VMSTApi(null, settings.VMST_API_BASE);
-  private readonly natRegApi: NationalRegistryAPI = new NationalRegistryAPI(
-    null,
-    settings.NATIONAL_REGISTRY_API_BASE,
-  );
+  constructor(
+    @Inject('VMST') private readonly vmstApi: VMSTApiService,
+    @Inject('NATREG') private readonly natRegApi: NationalRegistryAPIService,
+  ) {}
 
   @Mutation((type) => BenefitApplication)
   async submitApplication(
