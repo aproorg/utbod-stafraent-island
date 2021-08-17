@@ -34,12 +34,8 @@ jobs:
     environment: staging
     env:
       ENVIRONMENT: staging
-    strategy:
-      matrix:
-        service:
-          - vmst
-          - islandis
     steps:
+      - uses: actions/checkout@v2
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -50,17 +46,27 @@ jobs:
         run: |
           git clone https://github.com/tfutils/tfenv.git ~/.tfenv
           echo $HOME/.tfenv/bin >> $GITHUB_PATH
-      - name: Deploy
+      - name: Deploy islandis
         run: |
-          COMMIT_MSG=$(./infra/set-image-tag -e $ENVIRONMENT -t ${{ github.sha }} --deploy --sub ${{ matrix.services }})
+          COMMIT_MSG=$(./infra/set-image-tag.sh -e $ENVIRONMENT -t ${{ github.sha }} --deploy --sub islandis)
           echo "COMMIT_MSG=$COMMIT_MSG" >> $GITHUB_ENV
-      - name: Commit
+      - name: Commit islandis
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: ${{ env.COMMIT_MSG }}
-          skip_fetch: true
-      - name: Wait for service to stabilize
-        run: aws ecs wait services-stable --cluster=island-${{ matrix.service }}-$ENVIRONMENT --services=${{ matrix.service }}-$ENVIRONMENT
+      - name: Deploy vmst
+        run: |
+          COMMIT_MSG=$(./infra/set-image-tag.sh -e $ENVIRONMENT -t ${{ github.sha }} --deploy --sub vmst)
+          echo "COMMIT_MSG=$COMMIT_MSG" >> $GITHUB_ENV
+      - name: Commit vmst
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: ${{ env.COMMIT_MSG }}
+
+      - name: Wait for islandis to stabilize
+        run: aws ecs wait services-stable --cluster=island-islandis-$ENVIRONMENT --services=islandis-$ENVIRONMENT
+      - name: Wait for vmst to stabilize
+        run: aws ecs wait services-stable --cluster=island-vmst-$ENVIRONMENT --services=vmst-$ENVIRONMENT
 
   deploy-prod:
     name: Deploy ${{ github.sha }} to prod
@@ -68,13 +74,9 @@ jobs:
     needs: deploy-staging
     environment: prod
     env:
-      ENVIRONMENT: production
-    strategy:
-      matrix:
-        service:
-          - vmst
-          - islandis
+      ENVIRONMENT: prod
     steps:
+      - uses: actions/checkout@v2
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -85,14 +87,24 @@ jobs:
         run: |
           git clone https://github.com/tfutils/tfenv.git ~/.tfenv
           echo $HOME/.tfenv/bin >> $GITHUB_PATH
-      - name: Deploy
+      - name: Deploy islandis
         run: |
-          COMMIT_MSG=$(./infra/set-image-tag -e $ENVIRONMENT -t ${{ github.sha }} --deploy --sub ${{ matrix.services }})
+          COMMIT_MSG=$(./infra/set-image-tag.sh -e $ENVIRONMENT -t ${{ github.sha }} --deploy --sub islandis)
           echo "COMMIT_MSG=$COMMIT_MSG" >> $GITHUB_ENV
-      - name: Commit
+      - name: Commit islandis
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: ${{ env.COMMIT_MSG }}
-          skip_fetch: true
-      - name: Stabilize
-        run: aws ecs wait services-stable --cluster=island-${{ matrix.service }}-$ENVIRONMENT --services=${{ matrix.service }}-$ENVIRONMENT
+      - name: Deploy vmst
+        run: |
+          COMMIT_MSG=$(./infra/set-image-tag.sh -e $ENVIRONMENT -t ${{ github.sha }} --deploy --sub vmst)
+          echo "COMMIT_MSG=$COMMIT_MSG" >> $GITHUB_ENV
+      - name: Commit vmst
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: ${{ env.COMMIT_MSG }}
+
+      - name: Wait for islandis to stabilize
+        run: aws ecs wait services-stable --cluster=island-islandis-$ENVIRONMENT --services=islandis-$ENVIRONMENT --region=eu-west-2
+      - name: Wait for vmst to stabilize
+        run: aws ecs wait services-stable --cluster=island-vmst-$ENVIRONMENT --services=vmst-$ENVIRONMENT

@@ -47,7 +47,7 @@ if [[ "$COMMIT" == "true" ]]; then
   git diff --quiet || (>&2 echo 'Git directory dirty, exiting' && exit 1)
 fi
 
-target_file=$SUB/$ENVIRONMENT/services/services.tf
+target_file=infra/$SUB/$ENVIRONMENT/services/services.tf
 
 # This should be the only output if the user is not going to be committing
 echo "$COMMIT_MSG"
