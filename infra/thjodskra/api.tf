@@ -10,6 +10,12 @@ module "api_gateway" {
   description   = "DotNet api for thjodskra"
   protocol_type = "HTTP"
 
+  cors_configuration = {
+    allow_headers = ["content-type", "x-amz-date", "authorization", "x-api-key", "x-amz-security-token", "x-amz-user-agent"]
+    allow_methods = ["*"]
+    allow_origins = ["*"]
+  }
+
   domain_name                 = "thjodskra.island.andes.cloud"
   domain_name_certificate_arn = module.acm.certificate_arn
 
@@ -28,10 +34,6 @@ module "api_gateway" {
       payload_format_version = "2.0"
     }
   }
-
-  body = templatefile("api.yaml", {
-    example_function_arn = module.lambda_function.lambda_function_arn
-  })
 
   tags = {
     Name = "dev-api-new"
