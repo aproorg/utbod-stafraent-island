@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
+env=${1:-prod}
 
 created_application=$(curl -s -X 'POST' \
-  'https://dev.vmst.island.andes.cloud/api/applications' \
+  'https://'"$env"'.vmst.island.andes.cloud/api/v1/applications' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -26,7 +27,7 @@ created_application=$(curl -s -X 'POST' \
     }
   ]
 }')
-
+echo $created_application
 application_id=$(echo $created_application | jq '.id' -r)
 echo "Created application with id: $application_id (PRESS ENTER TO CONTINUE)"
 
@@ -37,7 +38,7 @@ echo "Getting application"
 echo
 
 curl -s -X 'GET' \
-  'https://dev.vmst.island.andes.cloud/api/applications/'$application_id \
+  'https://'"$env"'.vmst.island.andes.cloud/api/v1/applications/'$application_id \
   -H 'accept: application/json'
 
 read
@@ -47,7 +48,7 @@ echo "Updating application (adding job)"
 echo
 
 curl -s -X 'PUT' \
-  'https://dev.vmst.island.andes.cloud/api/applications/'$application_id \
+  'https://'"$env"'.vmst.island.andes.cloud/api/v1/applications/'$application_id \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -76,7 +77,7 @@ curl -s -X 'PUT' \
 }' > /dev/null
 
 curl -s -X 'GET' \
-  'https://dev.vmst.island.andes.cloud/api/applications/'$application_id \
+  'https://'"$env"'.vmst.island.andes.cloud/api/v1/applications/'$application_id \
   -H 'accept: application/json'
 
 read
@@ -86,10 +87,10 @@ echo "Deleting application"
 echo
 
 curl -s -X 'DELETE' \
-  'https://dev.vmst.island.andes.cloud/api/applications/'$application_id \
+  'https://'"$env"'.vmst.island.andes.cloud/api/v1/applications/'$application_id \
   -H 'accept: */*'
 curl -s -X 'GET' \
-  'https://dev.vmst.island.andes.cloud/api/applications/'$application_id \
+  'https://'"$env"'.vmst.island.andes.cloud/api/v1/applications/'$application_id \
   -H 'accept: application/json'
 
 echo
