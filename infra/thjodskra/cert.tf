@@ -5,11 +5,6 @@ module "acm" {
   domain_name = local.api_domain_name
 }
 
-provider "aws" {
-  alias  = "us"
-  region = "us-east-1"
-}
-
 module "acm-us" {
   source = "../modules/acm"
 

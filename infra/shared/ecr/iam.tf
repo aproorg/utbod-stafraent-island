@@ -39,6 +39,20 @@ data "aws_iam_policy_document" "deployer" {
     actions   = ["lambda:UpdateFunctionCode", "lambda:GetFunction"]
     resources = ["arn:aws:lambda:eu-west-1:596808618898:function:thjodskra-api-lambda"]
   }
+
+  statement {
+    actions = [
+      "s3:DeleteObject",
+      "s3:GetBucketLocation",
+      "s3:GetObject",
+      "s3:ListBucket",
+      "s3:PutObject"
+    ]
+    resources = [
+      "arn:aws:s3:::thjodskra-prod-swagger-origin",
+      "arn:aws:s3:::thjodskra-prod-swagger-origin/*"
+    ]
+  }
 }
 
 resource "aws_iam_policy" "deploy" {
