@@ -52,6 +52,9 @@ paths:
                       type: string
                     example:
                       - "0987654321"
+                required:
+                  - SSN
+                  - Name
         '400':
           description: Missing SSN parameter
         '404':
