@@ -13,9 +13,12 @@ locals {
 
 
 module "api" {
-  source         = "../../../modules/services/api"
-  common         = local.common_private
-  service_name   = "islandis-${local.env}"
+  source       = "../../../modules/services/api"
+  common       = local.common_private
+  service_name = "islandis-${local.env}"
+  environment = {
+    VMST_API_BASE = "https://dev.vmst.island.andes.cloud"
+  }
   desired_count  = 1
   host           = "${local.env}.islandis.${data.aws_route53_zone.island_andes_cloud.name}"
   image_tag      = local.image_tag
