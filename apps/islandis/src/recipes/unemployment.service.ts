@@ -87,14 +87,14 @@ export class UnemploymentApplicationInput {
   // @MaxLength(150)
   // secret: string;
 
-  @Field()
+  @Field((type) => [Child])
   @ApiProperty()
   children: Child[];
 
   // preferredJob: Job[];
   // career: Employment[];
 
-  @Field()
+  @Field((type) => EmploymentType)
   employment: typeof EmploymentType;
 
   @Field()
