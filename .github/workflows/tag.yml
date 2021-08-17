@@ -25,6 +25,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-1
       - name: Check if image exists
         run: aws ecr describe-images --repository-name=${{ matrix.service }} --image-ids=imageTag=83d1a34fff3154afb27d559763f26b82c427f56e
 
@@ -47,6 +48,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-1
       - name: Install tfenv
         run: |
           git clone https://github.com/tfutils/tfenv.git ~/.tfenv
@@ -88,6 +90,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.REGION }}
       - name: Install tfenv
         run: |
           git clone https://github.com/tfutils/tfenv.git ~/.tfenv
