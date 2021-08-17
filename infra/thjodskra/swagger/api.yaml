@@ -37,6 +37,12 @@ paths:
                   Address:
                     type: string
                     example: Nónsstígur 5
+                  PostalCode:
+                    type: int
+                    example: 108
+                  City:
+                    type: string
+                    example: Reykjavík
                   Email:
                     type: string
                     example: vg@island.is
