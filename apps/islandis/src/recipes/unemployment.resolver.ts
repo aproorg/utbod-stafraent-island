@@ -70,14 +70,8 @@ export class UnemploymentResolver {
   async getApplicationById(
     @Args('id') id: string,
   ): Promise<BenefitApplication> {
-    await this.vmstApi.livenessControllerGetLiveness();
     return {
       id: '13423432',
     };
-    const recipe = await this.recipesService.findOneById(id);
-    if (!recipe) {
-      throw new NotFoundException(id);
-    }
-    return recipe;
   }
 }
