@@ -10,7 +10,7 @@
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "format:check": "prettier --check \"src/**/*.ts\" \"test/**/*.ts\"",
-    "schema:gen:vmst": "docker run --rm -v \"${PWD}:/local\" openapitools/openapi-generator-cli generate -i https://dev.vmst.island.andes.cloud/vmst-json -g typescript-axios -o /local/gen/vmst",
+    "schema:gen:vmst": "docker run --rm -v \"${PWD}:/local\" openapitools/openapi-generator-cli generate -i http://host.docker.internal:3333/vmst-json -g typescript-axios -o /local/gen/vmst",
     "schema:gen": "yarn run schema:gen:vmst",
     "migrate": "echo No migrations for this project",
     "start": "nest start",
