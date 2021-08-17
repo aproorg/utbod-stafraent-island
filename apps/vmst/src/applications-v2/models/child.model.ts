@@ -7,11 +7,11 @@ import {
 } from 'sequelize-typescript';
 import { ApiProperty } from '@nestjs/swagger';
 
-import { Application } from './application.model';
+import { ApplicationV2 } from './application.model';
 
-@Table
-export class PreferredJob extends Model {
-  @ForeignKey(() => Application)
+@Table({ tableName: 'children' })
+export class ChildV2 extends Model {
+  @ForeignKey(() => ApplicationV2)
   @Column({
     type: DataType.UUID,
     primaryKey: true,
@@ -27,5 +27,12 @@ export class PreferredJob extends Model {
     allowNull: false,
   })
   @ApiProperty()
-  job: string;
+  nationalId: string;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
+  @ApiProperty()
+  name: string;
 }
