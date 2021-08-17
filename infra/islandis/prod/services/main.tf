@@ -1,5 +1,5 @@
 locals {
-  env        = "staging"
+  env        = "prod"
   aws_region = "eu-west-2"
   common_tags = tomap({
     "Owner"         = "DevOps",
@@ -15,7 +15,7 @@ locals {
 terraform {
   backend "s3" {
     encrypt = true
-    bucket  = "staging-utbod-stafraent-island-terraform-state"
+    bucket  = "prod-utbod-stafraent-island-terraform-state"
     region  = "eu-west-1"
     key     = "islandis/services/terraform.tfstate"
   }
@@ -37,7 +37,7 @@ data "terraform_remote_state" "ecs" {
   backend = "s3"
 
   config = {
-    region = local.aws_region
+    region = "eu-west-1"
     bucket = "${local.env}-utbod-stafraent-island-terraform-state"
     key    = "islandis/ecs/terraform.tfstate"
   }
@@ -47,7 +47,7 @@ data "terraform_remote_state" "networking" {
   backend = "s3"
 
   config = {
-    region = local.aws_region
+    region = "eu-west-1"
     bucket = "${local.env}-utbod-stafraent-island-terraform-state"
     key    = "islandis/networking/terraform.tfstate"
   }
@@ -57,7 +57,7 @@ data "terraform_remote_state" "ecr" {
   backend = "s3"
 
   config = {
-    region = local.aws_region
+    region = "eu-west-1"
     bucket = "shared-utbod-stafraent-island-terraform-state"
     key    = "ecr/terraform.tfstate"
   }

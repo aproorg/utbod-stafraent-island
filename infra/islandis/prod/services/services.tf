@@ -14,6 +14,7 @@ locals {
 
 module "api" {
   source       = "../../../modules/services/api"
+  region       = local.aws_region
   common       = local.common_private
   service_name = "islandis-${local.env}"
   environment = {
