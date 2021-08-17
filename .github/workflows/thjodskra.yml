@@ -5,8 +5,8 @@ on:
     branches:
       - 'master'
       - 'dotnet-maestro'
-    paths:
-      - apps/thjodskra
+    # paths:
+    #   - apps/thjodskra
   workflow_dispatch: {}
 
 jobs:
