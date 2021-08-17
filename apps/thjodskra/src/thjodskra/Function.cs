@@ -65,6 +65,8 @@ namespace thjodskra
                 };
             }
 
+            context.Logger.LogLine($"Returning citizen: {citizen.Name}");
+
             return new APIGatewayProxyResponse
             {
                 StatusCode = (int)HttpStatusCode.OK,
