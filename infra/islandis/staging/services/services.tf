@@ -13,10 +13,10 @@ locals {
 
 
 module "api" {
-  source         = "../../../modules/services/api"
-  common         = local.common_private
-  service_name   = "islandis-${local.env}"
-  environment    = {
+  source       = "../../../modules/services/api"
+  common       = local.common_private
+  service_name = "islandis-${local.env}"
+  environment = {
     VMST_API_BASE = "https://staging.vmst.island.andes.cloud"
   }
   desired_count  = 1
