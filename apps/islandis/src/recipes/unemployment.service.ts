@@ -22,8 +22,10 @@ export enum Regions {
   West,
 }
 @ObjectType()
+@InputType()
 export class FullEmployment {}
 @ObjectType()
+@InputType()
 export class PartTimeEmployment {
   @Field()
   @Max(100)
@@ -32,6 +34,7 @@ export class PartTimeEmployment {
 }
 export const EmploymentType = createUnionType({
   name: 'EmploymentType',
+  resolveType: (v) => (v.part ? PartTimeEmployment : FullEmployment),
   types: () => [FullEmployment, PartTimeEmployment],
 });
 registerEnumType(Regions, {
@@ -39,6 +42,7 @@ registerEnumType(Regions, {
 });
 
 @ObjectType()
+@InputType()
 export class Child {
   @Field()
   name: string;
@@ -48,20 +52,20 @@ export class Child {
 
 @InputType()
 export class UnemploymentApplicationInput {
-  @Field()
-  @MaxLength(150)
-  @ApiProperty()
-  name: string;
+  // @Field()
+  // @MaxLength(150)
+  // @ApiProperty()
+  // name: string;
 
-  @Field()
-  @MaxLength(150)
-  @ApiProperty()
-  address: string;
+  // @Field()
+  // @MaxLength(150)
+  // @ApiProperty()
+  // address: string;
 
-  @Field()
-  @MaxLength(10)
-  @ApiProperty()
-  postalAddress: string;
+  // @Field()
+  // @MaxLength(10)
+  // @ApiProperty()
+  // postalAddress: string;
 
   @Field()
   @MaxLength(10)
@@ -94,10 +98,10 @@ export class UnemploymentApplicationInput {
   // preferredJob: Job[];
   // career: Employment[];
 
-  @Field((type) => EmploymentType)
-  employment: typeof EmploymentType;
+  @Field((type) => PartTimeEmployment)
+  employment: PartTimeEmployment;
 
-  @Field()
+  @Field((type) => Regions)
   additionalWorkLocation: Regions;
 
   @Field()
