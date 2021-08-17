@@ -69,3 +69,30 @@ jobs:
 
       - name: Wait for service to stabilize
         run: aws ecs wait services-stable --cluster=island-${{ matrix.service }}-dev --services=${{ matrix.service }}-dev
+
+
+  thjodskra:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-1
+
+      - name: Setup dotnet requirements
+        run: |
+          dotnet tool install -g Amazon.Lambda.Tools
+          dotnet tool install -g dotnet-format
+
+      - name: Build lambda
+        run: ./build-lambda.sh
+        working-directory: apps/thjodskra
+
+      - name: Update function code
+        run: aws lambda update-function-code --function-name=thjodskra-api-lambda --zip-file=fileb://src/thjodskra/bin/Release/netcoreapp3.1/thjodskra.zip
+        working-directory: apps/thjodskra

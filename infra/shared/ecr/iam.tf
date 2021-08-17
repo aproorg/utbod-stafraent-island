@@ -34,6 +34,11 @@ data "aws_iam_policy_document" "deployer" {
     actions   = ["ecr:GetAuthorizationToken"]
     resources = ["*"]
   }
+
+  statement {
+    actions   = ["lambda:UpdateFunctionCode", "lambda:GetFunction"]
+    resources = ["arn:aws:lambda:eu-west-1:596808618898:function:thjodskra-api-lambda"]
+  }
 }
 
 resource "aws_iam_policy" "deploy" {
