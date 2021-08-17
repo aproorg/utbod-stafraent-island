@@ -3,7 +3,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { Test, TestingModule } from '@nestjs/testing';
 import { UnemploymentDomainModule } from './unemployment.module';
 import { GraphQLClient, gql } from 'graphql-request';
-import { BenefitApplication } from './models/recipe.model';
+import { BenefitApplication } from './models/model';
 
 describe('UnemploymentService', () => {
   let app: INestApplication;
@@ -30,17 +30,37 @@ describe('UnemploymentService', () => {
   it('should return some object with same ID', async () => {
     const endpoint = await app.getUrl();
     const client = new GraphQLClient(`${endpoint}/graphql`, {});
-
-    const query = gql`
-      {
-        getApplicationById(id: "0") {
+    const createApplication = gql`
+      mutation {
+        submitApplication(
+          application: {
+            socialId: "0101302989"
+            children: []
+            preferredJobs: [{ name: "developer" }, { name: "manager" }]
+            startDate: "2021-10-01"
+          }
+        ) {
           id
         }
       }
     `;
-    expect(await client.request<BenefitApplication>(query)).toStrictEqual({
+    const applicationCreated = await client.request(createApplication);
+    const id = applicationCreated.submitApplication.id;
+
+    expect(id).toBeTruthy();
+
+    const retrieveApplication = gql`
+      {
+        getApplicationById(id: "${id}") {
+          id
+        }
+      }
+    `;
+    expect(
+      await client.request<BenefitApplication>(retrieveApplication),
+    ).toStrictEqual({
       getApplicationById: {
-        id: '13423432',
+        id: id,
       },
     });
   });

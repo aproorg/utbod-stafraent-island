@@ -1,10 +1,7 @@
 import { Logger, NotFoundException } from '@nestjs/common';
 import { Args, InputType, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { BenefitApplication } from './models/recipe.model';
-import {
-  UnemploymentApplicationInput,
-  UnemploymentApplicationService,
-} from './unemployment.service';
+import { BenefitApplication } from './models/model';
+import { UnemploymentApplicationInput } from './models/model';
 import { DefaultApi as VMSTApi } from '../../gen/vmst';
 import { DefaultApi as NationalRegistryAPI } from '../../gen/thjodskra';
 
@@ -30,9 +27,6 @@ export class UnemploymentResolver {
     null,
     settings.NATIONAL_REGISTRY_API_BASE,
   );
-  constructor(
-    private readonly recipesService: UnemploymentApplicationService,
-  ) {}
 
   @Mutation((type) => BenefitApplication)
   async submitApplication(
@@ -44,7 +38,9 @@ export class UnemploymentResolver {
       const app = await this.vmstApi.applicationControllerCreateApplication({
         postalCode: natInfo.data.PostalCode,
         city: natInfo.data.City,
-        preferredJobs: [{ job: 'job 1' }, { job: 'job 2' }],
+        preferredJobs: application.preferredJobs.map((job) => ({
+          job: job.name,
+        })),
         address: natInfo.data.Address,
         nationalId: application.socialId,
         children: await Promise.all(
@@ -57,12 +53,13 @@ export class UnemploymentResolver {
         ),
         name: natInfo.data.Name,
       });
-      this.logger.error(`Got here`);
+      this.logger.log(`Application with ID ${app.data.id} created`);
       return {
         id: app.data.id,
       };
     } catch (e) {
       this.logger.error(JSON.stringify(e));
+      throw e;
     }
   }
 
@@ -70,8 +67,7 @@ export class UnemploymentResolver {
   async getApplicationById(
     @Args('id') id: string,
   ): Promise<BenefitApplication> {
-    return {
-      id: '13423432',
-    };
+    const app = await this.vmstApi.applicationControllerGetApplicationById(id);
+    return app.data;
   }
 }
