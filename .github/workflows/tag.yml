@@ -70,7 +70,7 @@ jobs:
     needs: deploy-staging
     environment: prod
     env:
-      ENVIRONMENT: production
+      ENVIRONMENT: prod
     strategy:
       matrix:
         service:
