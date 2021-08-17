@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { DefaultApi as VMSTApi } from '../../gen/vmst';
+import { ApplicationsV1Api as VMSTApi } from '../../gen/vmst';
 import { DefaultApi as NationalRegistryAPI } from '../../gen/thjodskra';
 
 @Injectable()
