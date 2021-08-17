@@ -30,12 +30,6 @@ jobs:
         run: ./build-lambda.sh
         working-directory: apps/thjodskra
 
-      - uses: hashicorp/setup-terraform@v1
-
-      - name: Init
-        run: terraform init
-        working-directory: infra/thjodskra
-
-      - name: Apply
-        run: terraform apply -auto-approve -target=module.lambda_function.aws_lambda_function.this -target=module.lambda_function.aws_lambda_permission.current_version_triggers
-        working-directory: infra/thjodskra
+      - name: Update function code
+        run: aws lambda update-function-code --function-name=thjodskra-api-lambda --zip-file=fileb://src/thjodskra/bin/Release/netcoreapp3.1/thjodskra.zip
+        working-directory: apps/thjodskra
