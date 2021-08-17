@@ -1,6 +1,9 @@
 import { Module } from '@nestjs/common';
 import { UnemploymentResolver } from './unemployment.resolver';
-import { NationalRegistryAPIService, VMSTApiService } from './VMSTApiService';
+import {
+  NationalRegistryAPIService,
+  VMSTApiService,
+} from './unemployment.service';
 
 const settings =
   process.env.NODE_ENV === 'production'

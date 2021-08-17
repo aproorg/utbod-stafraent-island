@@ -3,7 +3,10 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { Test, TestingModule } from '@nestjs/testing';
 import { GraphQLClient, gql } from 'graphql-request';
 import { BenefitApplication } from './models/model';
-import { NationalRegistryAPIService, VMSTApiService } from './VMSTApiService';
+import {
+  NationalRegistryAPIService,
+  VMSTApiService,
+} from './unemployment.service';
 import { mock, when } from 'ts-mockito';
 import { InlineResponse200 } from 'gen/thjodskra';
 import { UnemploymentResolver } from './unemployment.resolver';

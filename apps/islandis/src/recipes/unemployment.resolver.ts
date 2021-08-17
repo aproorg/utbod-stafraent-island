@@ -4,7 +4,10 @@ import { BenefitApplication } from './models/model';
 import { UnemploymentApplicationInput } from './models/model';
 import { DefaultApi as VMSTApi } from '../../gen/vmst';
 import { DefaultApi as NationalRegistryAPI } from '../../gen/thjodskra';
-import { NationalRegistryAPIService, VMSTApiService } from './VMSTApiService';
+import {
+  NationalRegistryAPIService,
+  VMSTApiService,
+} from './unemployment.service';
 
 @InputType()
 export class CreateApplicationInput {}
