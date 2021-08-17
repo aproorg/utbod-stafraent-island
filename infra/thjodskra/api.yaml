@@ -1,23 +1,75 @@
 openapi: "3.0.1"
 info:
-  version: 0.0.1
-  title: Thjodskra API
-  description: Thjodskra API
+  title: "Thjodskra dotnet api"
+  description: "DotNet api for thjodskra"
+  version: "2021-08-17 12:44:04UTC"
+servers:
+- url: "https://thjodskra.island.andes.cloud/{basePath}"
+  variables:
+    basePath:
+      default: ""
 paths:
-  /user:
+  /citizen/{SSN}:
     get:
-      operationId: getUser
+      parameters:
+        - name: SSN
+          in: path
+          description: SSN of citizen to fetch
+          required: true
+          schema:
+            type: string
+            format: string
       responses:
+        '200':
+          description: A citizen object.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  SSN:
+                    type: string
+                    format: string
+                    example: "1234567890"
+                  Name:
+                    type: string
+                    example: Gervimaður Ameríka
+                  Address:
+                    type: string
+                    example: Nónsstígur 5
+                  Email:
+                    type: string
+                    example: vg@island.is
+                  Phone:
+                    type: string
+                    example: "4265501"
+                  Children:
+                    type: string
+                    example: Gervimaður Ameríka
+                  Spouse:
+                    type: array
+                    items:
+                      type: string
+                    example:
+                      - "0987654321"
+        '400':
+          description: Missing SSN parameter
+        '404':
+          description: No citizen found with this SSN
         default:
-          description: "Default response for GET /user"
+          description: Unexpected error'
       x-amazon-apigateway-integration:
-        $ref: '#/components/x-amazon-apigateway-integrations/user'
-
+        payloadFormatVersion: "2.0"
+        type: "aws_proxy"
+        httpMethod: "POST"
+        uri: "arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:596808618898:function:thjodskra-api-lambda/invocations"
+        connectionType: "INTERNET"
 components:
   x-amazon-apigateway-integrations:
-    debug:
-      type: AWS_PROXY
-      httpMethod: GET
-      uri: "${example_function_arn}"
+    unusedIntegration_xzloz0r:
       payloadFormatVersion: "2.0"
-      connectionType: INTERNET
+      type: "aws_proxy"
+      httpMethod: "GET"
+      uri: "arn:aws:apigateway:eu-west-1:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-1:596808618898:function:thjodskra-api-lambda/invocations"
+      connectionType: "INTERNET"
+x-amazon-apigateway-importexport-version: "1.0"
