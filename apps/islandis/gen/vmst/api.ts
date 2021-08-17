@@ -24,106 +24,76 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
 /**
  * 
  * @export
- * @interface Application
+ * @interface ApplicationViewModel
  */
-export interface Application {
+export interface ApplicationViewModel {
     /**
      * 
      * @type {string}
-     * @memberof Application
+     * @memberof ApplicationViewModel
      */
     id: string;
     /**
      * 
      * @type {string}
-     * @memberof Application
+     * @memberof ApplicationViewModel
      */
     name: string;
     /**
      * 
      * @type {string}
-     * @memberof Application
+     * @memberof ApplicationViewModel
      */
     address: string;
     /**
      * 
-     * @type {string}
-     * @memberof Application
+     * @type {number}
+     * @memberof ApplicationViewModel
      */
-    postalCode: string;
+    postalCode: number;
     /**
      * 
      * @type {string}
-     * @memberof Application
+     * @memberof ApplicationViewModel
      */
     city: string;
     /**
      * 
      * @type {string}
-     * @memberof Application
+     * @memberof ApplicationViewModel
      */
     nationalId: string;
     /**
      * 
-     * @type {Array<Child>}
-     * @memberof Application
+     * @type {Array<ChildViewModel>}
+     * @memberof ApplicationViewModel
      */
-    children: Array<Child>;
+    children: Array<ChildViewModel>;
     /**
      * 
-     * @type {Array<PreferredJob>}
-     * @memberof Application
+     * @type {Array<PreferredJobViewModel>}
+     * @memberof ApplicationViewModel
      */
-    preferredJobs: Array<PreferredJob>;
-    /**
-     * 
-     * @type {string}
-     * @memberof Application
-     */
-    createdAt: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Application
-     */
-    updatedAt: string;
+    preferredJobs: Array<PreferredJobViewModel>;
 }
 /**
  * 
  * @export
- * @interface Child
+ * @interface ChildViewModel
  */
-export interface Child {
+export interface ChildViewModel {
     /**
      * 
      * @type {string}
-     * @memberof Child
-     */
-    applicationId: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Child
-     */
-    nationalId: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Child
+     * @memberof ChildViewModel
      */
     name: string;
     /**
      * 
      * @type {string}
-     * @memberof Child
+     * @memberof ChildViewModel
      */
-    createdAt: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Child
-     */
-    updatedAt: string;
+    nationalId: string;
 }
 /**
  * 
@@ -209,33 +179,15 @@ export interface CreatePreferredJobBody {
 /**
  * 
  * @export
- * @interface PreferredJob
+ * @interface PreferredJobViewModel
  */
-export interface PreferredJob {
+export interface PreferredJobViewModel {
     /**
      * 
      * @type {string}
-     * @memberof PreferredJob
-     */
-    applicationId: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PreferredJob
+     * @memberof PreferredJobViewModel
      */
     job: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PreferredJob
-     */
-    createdAt: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof PreferredJob
-     */
-    updatedAt: string;
 }
 
 /**
@@ -463,7 +415,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async applicationControllerCreateApplication(createApplicationBody: CreateApplicationBody, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Application>> {
+        async applicationControllerCreateApplication(createApplicationBody: CreateApplicationBody, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApplicationViewModel>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.applicationControllerCreateApplication(createApplicationBody, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -473,7 +425,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async applicationControllerDeleteApplication(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Application>> {
+        async applicationControllerDeleteApplication(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.applicationControllerDeleteApplication(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -483,7 +435,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async applicationControllerGetApplicationById(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Application>> {
+        async applicationControllerGetApplicationById(id: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApplicationViewModel>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.applicationControllerGetApplicationById(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -493,7 +445,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async applicationControllerGetApplications(nationalId?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Application>> {
+        async applicationControllerGetApplications(nationalId?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApplicationViewModel>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.applicationControllerGetApplications(nationalId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -504,7 +456,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async applicationControllerUpdateApplication(id: string, createApplicationBody: CreateApplicationBody, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Application>> {
+        async applicationControllerUpdateApplication(id: string, createApplicationBody: CreateApplicationBody, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApplicationViewModel>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.applicationControllerUpdateApplication(id, createApplicationBody, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -533,7 +485,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        applicationControllerCreateApplication(createApplicationBody: CreateApplicationBody, options?: any): AxiosPromise<Application> {
+        applicationControllerCreateApplication(createApplicationBody: CreateApplicationBody, options?: any): AxiosPromise<ApplicationViewModel> {
             return localVarFp.applicationControllerCreateApplication(createApplicationBody, options).then((request) => request(axios, basePath));
         },
         /**
@@ -542,7 +494,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        applicationControllerDeleteApplication(id: string, options?: any): AxiosPromise<Application> {
+        applicationControllerDeleteApplication(id: string, options?: any): AxiosPromise<void> {
             return localVarFp.applicationControllerDeleteApplication(id, options).then((request) => request(axios, basePath));
         },
         /**
@@ -551,7 +503,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        applicationControllerGetApplicationById(id: string, options?: any): AxiosPromise<Application> {
+        applicationControllerGetApplicationById(id: string, options?: any): AxiosPromise<ApplicationViewModel> {
             return localVarFp.applicationControllerGetApplicationById(id, options).then((request) => request(axios, basePath));
         },
         /**
@@ -560,7 +512,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        applicationControllerGetApplications(nationalId?: string, options?: any): AxiosPromise<Application> {
+        applicationControllerGetApplications(nationalId?: string, options?: any): AxiosPromise<ApplicationViewModel> {
             return localVarFp.applicationControllerGetApplications(nationalId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -570,7 +522,7 @@ export const DefaultApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        applicationControllerUpdateApplication(id: string, createApplicationBody: CreateApplicationBody, options?: any): AxiosPromise<Application> {
+        applicationControllerUpdateApplication(id: string, createApplicationBody: CreateApplicationBody, options?: any): AxiosPromise<ApplicationViewModel> {
             return localVarFp.applicationControllerUpdateApplication(id, createApplicationBody, options).then((request) => request(axios, basePath));
         },
         /**
