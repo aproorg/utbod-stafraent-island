@@ -30,7 +30,6 @@ jobs:
         run: ./build-lambda.sh
         working-directory: apps/thjodskra
 
-
       - uses: hashicorp/setup-terraform@v1
 
       - name: Init
