@@ -18,7 +18,7 @@ import {
 import { classToPlain, plainToClass } from 'class-transformer';
 
 import { ApplicationService } from './application.service';
-import { Application } from './application.model';
+import { Application } from './models';
 import {
   GetApplicationsQuery,
   CreateApplicationBody,

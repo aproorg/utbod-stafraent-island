@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 
-import { Application, Child, PreferredJob } from './application.model';
+import { Application, Child, PreferredJob } from './models';
 import { CreateApplicationBody } from './dto';
 
 @Injectable()

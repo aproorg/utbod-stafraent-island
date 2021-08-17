@@ -3,7 +3,7 @@ import { SequelizeModule } from '@nestjs/sequelize';
 
 import { ApplicationController } from './application.controller';
 import { ApplicationService } from './application.service';
-import { Application, Child, PreferredJob } from './application.model';
+import { Application, Child, PreferredJob } from './models';
 
 @Module({
   imports: [SequelizeModule.forFeature([Application, Child, PreferredJob])],
