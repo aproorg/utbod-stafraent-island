@@ -32,7 +32,7 @@ jobs:
   deploy-staging:
     name: Deploy 83d1a34fff3154afb27d559763f26b82c427f56e to staging
     runs-on: ubuntu-20.04
-    needs: check-image-exists
+    # needs: check-image-exists
     environment: staging
     env:
       ENVIRONMENT: staging
