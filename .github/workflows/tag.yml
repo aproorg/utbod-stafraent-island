@@ -36,6 +36,8 @@ jobs:
       ENVIRONMENT: staging
     steps:
       - uses: actions/checkout@v2
+        with:
+          ref: master
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -77,6 +79,8 @@ jobs:
       ENVIRONMENT: prod
     steps:
       - uses: actions/checkout@v2
+        with:
+          ref: master
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
