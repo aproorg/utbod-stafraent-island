@@ -14,4 +14,6 @@ done
 
 db_pass=$(aws ssm get-parameter --name=/ecs/vmst-$env/DB_PASSWORD --with-decryption --query=Parameter.Value --output=text)
 
+set -x
+
 docker run -e PGPASSWORD=$db_pass --rm --network host postgres:11.7 psql -h localhost -d vmst -U vmst -c "select * from applications"
