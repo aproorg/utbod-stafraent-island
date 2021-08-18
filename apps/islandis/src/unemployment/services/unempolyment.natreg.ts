@@ -14,14 +14,14 @@ export class NationalRegistryAPIService {
     }
   }
 
-  async getCitizen(applic: { nationalId: string }) {
+  async getCitizen(form: { nationalId: string }) {
     try {
-      const citizen = await this.vmstApi.citizenSSNGet(applic.nationalId);
+      const citizen = await this.vmstApi.citizenSSNGet(form.nationalId);
       this.logger.debug(`Info about citizen retrieved`);
       return citizen.data;
     } catch (e) {
       this.logger.error(
-        `Error retrieving information from National Regitry for nationalId ending in ${applic.nationalId.slice(
+        `Error retrieving information from National Regitry for nationalId ending in ${form.nationalId.slice(
           6,
         )}`,
       );

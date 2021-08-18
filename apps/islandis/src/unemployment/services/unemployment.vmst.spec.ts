@@ -1,11 +1,10 @@
-import { anything, mock, when } from 'ts-mockito';
+import { anything, instance, mock, when } from 'ts-mockito';
 import { VMSTApiService } from './unemployment.vmst';
 import { ApplicationsV1Api as VMSTApi } from '../../../gen/vmst';
 
-xdescribe('VMST api', () => {
+describe('VMST api', () => {
   it('successful call to create an application', async () => {
     const api = mock(VMSTApi);
-    const sut = new VMSTApiService(api);
     when(api.applicationControllerCreateApplication(anything())).thenResolve({
       config: null,
       headers: [],
@@ -22,6 +21,7 @@ xdescribe('VMST api', () => {
       status: 200,
       statusText: 'ok',
     });
+    const sut = new VMSTApiService(instance(api));
     expect(
       await sut.createApplication({
         nationalId: '11111',
@@ -33,26 +33,27 @@ xdescribe('VMST api', () => {
         postalCode: 108,
         address: '',
       }),
-    ).toEqual({ id: 12 });
+    ).toEqual({ id: '12' });
   });
   it('failed call to create an application', async () => {
     const api = mock(VMSTApi);
-    const sut = new VMSTApiService(api);
-    when(api.applicationControllerCreateApplication(anything())).thenThrow(
+    when(api.applicationControllerCreateApplication(anything())).thenReject(
       new Error('Internal error'),
     );
-    expect(
-      async () =>
-        await sut.createApplication({
-          nationalId: '11111',
-          children: [],
-          name: 'Gervimadur',
-          preferredJobs: [],
-          startDate: new Date(),
-          city: 'Reykjavik',
-          postalCode: 108,
-          address: '',
-        }),
-    ).toThrow('asdfasdf');
+    const sut = new VMSTApiService(instance(api));
+    await expect(
+      sut.createApplication({
+        nationalId: '11111',
+        children: [],
+        name: 'Gervimadur',
+        preferredJobs: [],
+        startDate: new Date(),
+        city: 'Reykjavik',
+        postalCode: 108,
+        address: '',
+      }),
+    ).rejects.toStrictEqual(
+      new Error('Error creating application with VMST: Internal error'),
+    );
   });
 });

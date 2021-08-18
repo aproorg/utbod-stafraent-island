@@ -14,7 +14,7 @@ export class VMSTApiService {
     }
   }
 
-  async createApplication(applic: {
+  async createApplication(form: {
     nationalId: string;
     children: { name: string; nationalId: string }[];
 
@@ -27,7 +27,7 @@ export class VMSTApiService {
   }) {
     try {
       const app = await this.vmstApi.applicationControllerCreateApplication(
-        applic,
+        form,
       );
       this.logger.log(`Application with ID ${app.data.id} created`);
       return {
@@ -35,7 +35,7 @@ export class VMSTApiService {
       };
     } catch (e) {
       this.logger.error(
-        `Error processing application for kennitala ending in ${applic.nationalId.slice(
+        `Error processing application for kennitala ending in ${form.nationalId.slice(
           6,
         )}`,
       );
