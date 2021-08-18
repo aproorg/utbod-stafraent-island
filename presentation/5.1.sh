@@ -19,7 +19,7 @@ created_application=$(curl -s 'https://'"$env"'.islandis.island.andes.cloud/grap
   --compressed
 )
 
-echo $created_application
+echo $created_application | jq
 application_id=$(echo $created_application | jq '.data.submitApplication.id' -r)
 echo "Created application with id: $application_id (PRESS ENTER TO CONTINUE)"
 
@@ -31,5 +31,5 @@ echo
 
 curl -s -X 'GET' \
   'https://'"$env"'.vmst.island.andes.cloud/api/v1/applications/'$application_id \
-  -H 'accept: application/json'
+  -H 'accept: application/json' | jq
 

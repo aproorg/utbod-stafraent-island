@@ -27,7 +27,7 @@ created_application=$(curl -s -X 'POST' \
     }
   ]
 }')
-echo $created_application
+
 application_id=$(echo $created_application | jq '.id' -r)
 echo "Created application with id: $application_id (PRESS ENTER TO CONTINUE)"
 
@@ -39,7 +39,7 @@ echo
 
 curl -s -X 'GET' \
   'https://'"$env"'.vmst.island.andes.cloud/api/v1/applications/'$application_id \
-  -H 'accept: application/json'
+  -H 'accept: application/json' | jq
 
 read -r
 
@@ -78,7 +78,7 @@ curl -s -X 'PUT' \
 
 curl -s -X 'GET' \
   'https://'"$env"'.vmst.island.andes.cloud/api/v1/applications/'$application_id \
-  -H 'accept: application/json'
+  -H 'accept: application/json' | jq
 
 read -r
 
@@ -91,6 +91,6 @@ curl -s -X 'DELETE' \
   -H 'accept: */*'
 curl -s -X 'GET' \
   'https://'"$env"'.vmst.island.andes.cloud/api/v1/applications/'$application_id \
-  -H 'accept: application/json'
+  -H 'accept: application/json' | jq
 
 echo
