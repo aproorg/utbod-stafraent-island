@@ -6,15 +6,15 @@ Skjölun fyrir þróun á vefþjónustum er að finna hjá kóða þjónustanna 
 
 ### VMST
 
-Vefþjónustu er hægt að finna undir apps/vmst og [skjölun er að finna hér](https://prod.vmst.island.andes.cloud/api/).
+Vefþjónustu er hægt að finna undir [apps/vmst](apps/vmst) og [skjölun er að finna hér](https://prod.vmst.island.andes.cloud/api/).
 
 ### Þjóðskrá
 
-Vefþjónustu er hægt að finna undir apps/thjodskra og [skjölun er að finna hér](https://swagger.thjodskra.island.andes.cloud/).
+Vefþjónustu er hægt að finna undir [apps/thjodskra](apps/thjodskra) og [skjölun er að finna hér](https://swagger.thjodskra.island.andes.cloud/).
 
 ### islandis
 
-Vefþjónustu er hægt að finna undir apps/islandis og [skjölun er að finna hér](https://prod.islandis.island.andes.cloud/graphql).
+Vefþjónustu er hægt að finna undir [apps/islandis](apps/islandis) og [skjölun er að finna hér](https://prod.islandis.island.andes.cloud/graphql).
 
 ## Innviðir
 
