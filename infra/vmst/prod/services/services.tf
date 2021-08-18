@@ -1,5 +1,5 @@
 locals {
-  image_tag = "729c9132339263c829e9d9f3f692566502b570b4"
+  image_tag = "08d826f8bb64b04a22a53abe8fd1e1fa1d964f2d"
   common_private = {
     vpc_id                = local.vpc_id
     shared_security_group = data.terraform_remote_state.ecs.outputs.applications_shared_security_group
