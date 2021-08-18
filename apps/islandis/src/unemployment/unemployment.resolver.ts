@@ -1,7 +1,5 @@
-import { Inject, Logger, NotFoundException } from '@nestjs/common';
+import { Inject, Logger } from '@nestjs/common';
 import { Args, InputType, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { AxiosResponse } from 'axios';
-import { InlineResponse200 } from 'gen/thjodskra';
 import { UnemployemntApplicationOutput } from './models/model';
 import { UnemploymentApplicationInput } from './models/model';
 import { VMSTApiService } from './services/unemployment.vmst';
@@ -13,6 +11,7 @@ export class CreateApplicationInput {}
 @Resolver((of) => UnemployemntApplicationOutput)
 export class UnemploymentResolver {
   private readonly logger = new Logger(UnemploymentResolver.name);
+
   constructor(
     @Inject('VMST') private readonly vmstApi: VMSTApiService,
     @Inject('NATREG') private readonly natRegApi: NationalRegistryAPIService,
