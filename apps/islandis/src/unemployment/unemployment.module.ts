@@ -1,9 +1,7 @@
 import { Module } from '@nestjs/common';
 import { UnemploymentResolver } from './unemployment.resolver';
-import {
-  NationalRegistryAPIService,
-  VMSTApiService,
-} from './services/unemployment.vmst';
+import { VMSTApiService } from './services/unemployment.vmst';
+import { NationalRegistryAPIService } from './services/unempolyment.natreg';
 
 const settings =
   process.env.NODE_ENV === 'production'
@@ -26,10 +24,7 @@ const settings =
     {
       provide: 'NATREG',
       useFactory: () =>
-        new NationalRegistryAPIService(
-          null,
-          settings.NATIONAL_REGISTRY_API_BASE,
-        ),
+        new NationalRegistryAPIService(settings.NATIONAL_REGISTRY_API_BASE),
     },
   ],
 })

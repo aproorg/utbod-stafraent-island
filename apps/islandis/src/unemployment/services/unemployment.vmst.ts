@@ -1,6 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { ApplicationsV1Api as VMSTApi } from '../../../gen/vmst';
-import { DefaultApi as NationalRegistryAPI } from '../../../gen/thjodskra';
 
 @Injectable()
 export class VMSTApiService {
@@ -49,5 +48,3 @@ export class VMSTApiService {
     return { id: (await application).data.id };
   }
 }
-@Injectable()
-export class NationalRegistryAPIService extends NationalRegistryAPI {}
