@@ -3,12 +3,6 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { Test, TestingModule } from '@nestjs/testing';
 import { GraphQLClient, gql } from 'graphql-request';
 import { UnemployemntApplicationOutput } from './models/model';
-import {
-  NationalRegistryAPIService,
-  VMSTApiService,
-} from './services/unemployment.vmst';
-import { mock, when } from 'ts-mockito';
-import { InlineResponse200 } from 'gen/thjodskra';
 import { UnemploymentResolver } from './unemployment.resolver';
 
 describe('UnemploymentService', () => {
@@ -25,17 +19,11 @@ describe('UnemploymentService', () => {
         {
           provide: 'NATREG',
           useFactory: () => ({
-            citizenSSNGet: jest.fn(() =>
+            getCitizen: jest.fn(() =>
               Promise.resolve({
-                headers: [],
-                status: 200,
-                statusText: 'OK',
-                config: null,
-                data: {
-                  Name: 'Rocket Man',
-                  SSN: '0101302989',
-                  Address: 'Some place',
-                },
+                Name: 'Rocket Man',
+                SSN: '0101302989',
+                Address: 'Some place',
               }),
             ),
           }),

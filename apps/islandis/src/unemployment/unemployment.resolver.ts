@@ -4,10 +4,8 @@ import { AxiosResponse } from 'axios';
 import { InlineResponse200 } from 'gen/thjodskra';
 import { UnemployemntApplicationOutput } from './models/model';
 import { UnemploymentApplicationInput } from './models/model';
-import {
-  NationalRegistryAPIService,
-  VMSTApiService,
-} from './services/unemployment.vmst';
+import { VMSTApiService } from './services/unemployment.vmst';
+import { NationalRegistryAPIService } from './services/unempolyment.natreg';
 
 @InputType()
 export class CreateApplicationInput {}
@@ -25,42 +23,28 @@ export class UnemploymentResolver {
     @Args({ name: 'application', type: () => UnemploymentApplicationInput })
     application: UnemploymentApplicationInput,
   ): Promise<UnemployemntApplicationOutput> {
-    let natInfo: AxiosResponse<InlineResponse200>;
-    try {
-      natInfo = await this.natRegApi.citizenSSNGet(application.nationalId);
-    } catch (e) {
-      throw new Error(
-        `Failed retrieving info from National Regitry(${e.message})`,
-      );
-    }
-    try {
-      const app = await this.vmstApi.createApplication({
-        startDate: application.startDate,
-        postalCode: natInfo.data.PostalCode,
-        city: natInfo.data.City,
-        preferredJobs: application.preferredJobs.map((job) => ({
-          job: job.name,
+    const natInfo = await this.natRegApi.getCitizen(application);
+    const app = await this.vmstApi.createApplication({
+      startDate: application.startDate,
+      postalCode: natInfo.PostalCode,
+      city: natInfo.City,
+      preferredJobs: application.preferredJobs.map((job) => ({
+        job: job.name,
+      })),
+      address: natInfo.Address,
+      nationalId: application.nationalId,
+      children: await Promise.all(
+        application.children.map(async (child) => ({
+          name: (await this.natRegApi.getCitizen(child)).Name,
+          nationalId: child.nationalId,
         })),
-        address: natInfo.data.Address,
-        nationalId: application.nationalId,
-        children: await Promise.all(
-          application.children.map(async (child) => ({
-            name: (
-              await this.natRegApi.citizenSSNGet(child.nationalId)
-            ).data.Name,
-            nationalId: child.nationalId,
-          })),
-        ),
-        name: natInfo.data.Name,
-      });
-      this.logger.log(`Application with ID ${app.id} created`);
-      return {
-        id: app.id,
-      };
-    } catch (e) {
-      this.logger.error(JSON.stringify(e));
-      throw e;
-    }
+      ),
+      name: natInfo.Name,
+    });
+    this.logger.log(`Application with ID ${app.id} created`);
+    return {
+      id: app.id,
+    };
   }
 
   @Query((returns) => UnemployemntApplicationOutput)
