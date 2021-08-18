@@ -6,7 +6,7 @@ import { UnemployemntApplicationOutput } from './models/model';
 import {
   NationalRegistryAPIService,
   VMSTApiService,
-} from './unemployment.service';
+} from './services/unemployment.vmst';
 import { mock, when } from 'ts-mockito';
 import { InlineResponse200 } from 'gen/thjodskra';
 import { UnemploymentResolver } from './unemployment.resolver';
@@ -43,26 +43,14 @@ describe('UnemploymentService', () => {
         {
           provide: 'VMST',
           useFactory: () => ({
-            applicationControllerGetApplicationById: jest.fn((id) =>
+            getApplicationById: jest.fn((id) =>
               Promise.resolve({
-                headers: [],
-                status: 200,
-                statusText: 'OK',
-                config: null,
-                data: {
-                  id: '12',
-                },
+                id: '12',
               }),
             ),
-            applicationControllerCreateApplication: jest.fn(() =>
+            createApplication: jest.fn(() =>
               Promise.resolve({
-                headers: [],
-                status: 200,
-                statusText: 'OK',
-                config: null,
-                data: {
-                  id: '12',
-                },
+                id: '12',
               }),
             ),
           }),

@@ -1,11 +1,13 @@
 import { Inject, Logger, NotFoundException } from '@nestjs/common';
 import { Args, InputType, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { AxiosResponse } from 'axios';
+import { InlineResponse200 } from 'gen/thjodskra';
 import { UnemployemntApplicationOutput } from './models/model';
 import { UnemploymentApplicationInput } from './models/model';
 import {
   NationalRegistryAPIService,
   VMSTApiService,
-} from './unemployment.service';
+} from './services/unemployment.vmst';
 
 @InputType()
 export class CreateApplicationInput {}
@@ -23,9 +25,17 @@ export class UnemploymentResolver {
     @Args({ name: 'application', type: () => UnemploymentApplicationInput })
     application: UnemploymentApplicationInput,
   ): Promise<UnemployemntApplicationOutput> {
-    const natInfo = await this.natRegApi.citizenSSNGet(application.nationalId);
+    let natInfo: AxiosResponse<InlineResponse200>;
     try {
-      const app = await this.vmstApi.applicationControllerCreateApplication({
+      natInfo = await this.natRegApi.citizenSSNGet(application.nationalId);
+    } catch (e) {
+      throw new Error(
+        `Failed retrieving info from National Regitry(${e.message})`,
+      );
+    }
+    try {
+      const app = await this.vmstApi.createApplication({
+        startDate: application.startDate,
         postalCode: natInfo.data.PostalCode,
         city: natInfo.data.City,
         preferredJobs: application.preferredJobs.map((job) => ({
@@ -43,9 +53,9 @@ export class UnemploymentResolver {
         ),
         name: natInfo.data.Name,
       });
-      this.logger.log(`Application with ID ${app.data.id} created`);
+      this.logger.log(`Application with ID ${app.id} created`);
       return {
-        id: app.data.id,
+        id: app.id,
       };
     } catch (e) {
       this.logger.error(JSON.stringify(e));
@@ -57,7 +67,6 @@ export class UnemploymentResolver {
   async getApplicationById(
     @Args('id') id: string,
   ): Promise<UnemployemntApplicationOutput> {
-    const app = await this.vmstApi.applicationControllerGetApplicationById(id);
-    return app.data;
+    return await this.vmstApi.getApplicationById(id);
   }
 }

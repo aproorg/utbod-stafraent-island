@@ -3,7 +3,7 @@ import { UnemploymentResolver } from './unemployment.resolver';
 import {
   NationalRegistryAPIService,
   VMSTApiService,
-} from './unemployment.service';
+} from './services/unemployment.vmst';
 
 const settings =
   process.env.NODE_ENV === 'production'
@@ -21,7 +21,7 @@ const settings =
     UnemploymentResolver,
     {
       provide: 'VMST',
-      useFactory: () => new VMSTApiService(null, settings.VMST_API_BASE),
+      useFactory: () => new VMSTApiService(settings.VMST_API_BASE),
     },
     {
       provide: 'NATREG',
