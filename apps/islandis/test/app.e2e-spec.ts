@@ -56,7 +56,7 @@ describe('Unemployment module', () => {
     await app.close();
   });
 
-  it('should return some object with same ID', async () => {
+  it('should create an applicaiton and retrieve it by ID', async () => {
     const endpoint = await app.getUrl();
     const client = new GraphQLClient(`${endpoint}/graphql`, {});
     const createApplication = gql`
