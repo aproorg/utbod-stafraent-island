@@ -31,7 +31,7 @@ echo $created_application
 application_id=$(echo $created_application | jq '.id' -r)
 echo "Created application with id: $application_id (PRESS ENTER TO CONTINUE)"
 
-read
+read -r
 
 echo
 echo "Getting application"
@@ -41,7 +41,7 @@ curl -s -X 'GET' \
   'https://'"$env"'.vmst.island.andes.cloud/api/v1/applications/'$application_id \
   -H 'accept: application/json'
 
-read
+read -r
 
 echo
 echo "Updating application (adding job)"
@@ -80,7 +80,7 @@ curl -s -X 'GET' \
   'https://'"$env"'.vmst.island.andes.cloud/api/v1/applications/'$application_id \
   -H 'accept: application/json'
 
-read
+read -r
 
 echo
 echo "Deleting application"
